@@ -1,0 +1,25 @@
+{
+    "game": "timetravel-b",
+    "assets": [
+        {
+            "url": "xyz",
+            "value": "0"
+        },
+        {
+            "url": "xyz",
+            "value": "1"
+        },
+        {
+            "url": "xyz",
+            "value": "2"
+        },
+        {
+            "url": "xyz",
+            "value": "3"
+        },
+        {
+            "url": "xyz",
+            "value": "4"
+        }
+    ]
+}

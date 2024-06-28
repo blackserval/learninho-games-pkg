@@ -1,0 +1,10 @@
+{
+    "game": "magic-word-a",
+    "assets": [
+        {
+            "url": "xyz",
+            "value": "elephant"
+        }
+    ],
+    "words": ["racoon", "cat", "snake", "puppy", "parrot"]
+}
