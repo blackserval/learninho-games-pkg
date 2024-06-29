@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_game_module/config/app_pages.dart';
-import 'package:flutter_game_module/config/route.dart';
+import 'package:flutter_game_module/routes/app_pages.dart';
+import 'package:flutter_game_module/routes/route.dart';
 import 'package:flutter_game_module/controllers/navigation_controller.dart';
+import 'package:flutter_game_module/pages/time_travel_1_page.dart';
+import 'package:flutter_game_module/shared/app_theme.dart';
 
 import 'config/locators.dart';
-import 'pages/home_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -14,9 +15,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Learninho',
-      home: const HomePage(),
+      home: const TimeTravel1Page(),
+      theme: AppTheme.theme,
       //Route config
-      initialRoute: AppPages.home,
+      initialRoute: AppPages.timeTravel1,
       onGenerateRoute: CustomRouter.generateRoute,
       navigatorKey: locator.get<NavigationController>().navigatorKey,
     );

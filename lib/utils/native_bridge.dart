@@ -1,6 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_game_module/config/constants.dart';
+import 'package:flutter_game_module/controllers/navigation_controller.dart';
+import 'package:flutter_game_module/routes/app_pages.dart';
+import 'package:get_it/get_it.dart';
 
 class NativeBridge {
   NativeBridge._();
@@ -13,14 +16,16 @@ class NativeBridge {
     AppConstants.channelName,
   );
 
+  NavigationController get route => GetIt.I.get<NavigationController>();
+
   setupMethodChannel() {
     _channel.setMethodCallHandler(
       (MethodCall call) async {
         switch (call.method) {
-          case AppConstants.methodReceiveData:
-            receiveDataFromSwiftUI(call.arguments);
-          case AppConstants.methodOpenGameA:
-            //route to game A
+          case AppConstants.methodReceiveDataFromNative:
+            receiveDataFromNative(call.arguments);
+          case AppConstants.methodTimeTravel1:
+            route.push(name: AppPages.timeTravel1);
             break;
           default:
             throw MissingPluginException();
@@ -29,13 +34,13 @@ class NativeBridge {
     );
   }
 
-  receiveDataFromSwiftUI(dynamic data) async {
+  receiveDataFromNative(dynamic data) async {
     debugPrint("Dados vindo do Swift $data");
   }
 
-  static Future<void> sendDataToSwift(String data) async {
+  static Future<void> sendDataToNative(String data) async {
     try {
-      await _channel.invokeMethod('sendDataToSwift', data);
+      await _channel.invokeMethod(AppConstants.methodSendDataToNative, data);
     } catch (e) {
       debugPrint('Erro ao enviar dados para o Swift: $e');
     }
