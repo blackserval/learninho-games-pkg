@@ -45,7 +45,6 @@ class _DragTargetWidgetState extends State<DragTargetWidget> {
   }
 
   reset() {
-    print("Mudou");
     setState(() => dataReceived = null);
   }
 
@@ -69,7 +68,6 @@ class _DragTargetWidgetState extends State<DragTargetWidget> {
         },
         onWillAcceptWithDetails: (details) {
           if (details.data['value'] == widget.targetValue) {
-            print("Received value: ${details.data['value']}");
             HapticHelper.vibrate(HapticsType.success);
             return true;
           } else {
@@ -79,6 +77,8 @@ class _DragTargetWidgetState extends State<DragTargetWidget> {
         },
         onAcceptWithDetails: (details) {
           setState(() => dataReceived = details.data);
+          //Retorno para o widget pai os dados que foram aceitos
+          //e entraram no target
           widget.onAcceptItem(details);
         },
       ),

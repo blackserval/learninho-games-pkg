@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_game_module/helper/haptic_helper.dart';
@@ -17,9 +15,7 @@ class TimeTravel1Page extends StatefulWidget {
 
 class _TimeTravel1PageState extends State<TimeTravel1Page> {
   final audioplayer = AudioPlayer();
-  final confetti = ConfettiController(
-    duration: const Duration(seconds: 5),
-  );
+  final confetti = ConfettiController(duration: const Duration(seconds: 5));
   final ValueNotifier resetNotifier = ValueNotifier(0);
   bool soundOn = true;
   Map<String, bool> score = {"0": false, "1": false, "2": false, "3": false};
@@ -57,6 +53,7 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
     // Aqui nao importa o dado, mas sim fazer uma alteração
     //Para os listener receberem
     resetNotifier.value++;
+    //Troca todos os pontos para false
     setState(
       () => score = score.map((key, value) => MapEntry(key, false)),
     );
@@ -64,15 +61,17 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
 
   void onTargetAccept(DragTargetDetails<Map<String, dynamic>> details) {
     audioplayer.play(AssetSource('sounds/success.wav'));
-    debugPrint('Accept! circle 0 received data');
+    //Adiciono ao value do item true
     setState(() => score[details.data['value']] = true);
   }
 
-  goToNextGame() {
+  void goToNextGame() {
+    //Verifico se todos os values são true com o ".reduce"
     bool success = score.values.toList().reduce((a, b) => a && b);
     if (success) {
       confetti.play();
       audioplayer.play(AssetSource('sounds/success_end.wav'));
+      //TODO: Retornar os dados para o nativo
     }
   }
 
@@ -82,7 +81,8 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
-            "Score ${score.values.where((e) => e).length} / ${score.length}"),
+          "Score ${score.values.where((e) => e).length} / ${score.length}",
+        ),
         leading: Padding(
           padding: const EdgeInsets.only(top: 12),
           child: CircleAvatar(
