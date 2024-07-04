@@ -28,6 +28,21 @@ flutter:
   assets:
     - assets/sounds/
     - assets/images/
+    - assets/icons/
+
+  fonts:
+    - family: Fredoka
+      fonts:
+        - asset: assets/fonts/fredoka-300.ttf
+          weight: 300
+        - asset: assets/fonts/fredoka-400.ttf
+          weight: 400
+        - asset: assets/fonts/fredoka-500.ttf
+          weight: 500
+        - asset: assets/fonts/fredoka-700.ttf
+          weight: 700
+        - asset: assets/fonts/fredoka-800.ttf
+          weight: 800
 
 
   # This section identifies your Flutter project as a module meant for

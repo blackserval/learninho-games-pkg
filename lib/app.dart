@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_game_module/routes/app_pages.dart';
 import 'package:flutter_game_module/routes/route.dart';
 import 'package:flutter_game_module/controllers/navigation_controller.dart';
-import 'package:flutter_game_module/pages/time_travel_1_page.dart';
-import 'package:flutter_game_module/shared/app_theme.dart';
+import 'package:flutter_game_module/pages/timeTravel/time_travel_1_page.dart';
+import 'package:flutter_game_module/shared/theme/app_theme.dart';
 
 import 'config/locators.dart';
 

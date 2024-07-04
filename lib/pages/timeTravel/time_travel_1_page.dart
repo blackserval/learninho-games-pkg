@@ -1,10 +1,14 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_game_module/helper/haptic_helper.dart';
-import 'package:flutter_game_module/pages/widget/drag_target_widget.dart';
-import 'package:flutter_game_module/shared/app_text.dart';
-import 'package:haptic_feedback/haptic_feedback.dart';
+import 'package:flutter_game_module/controllers/navigation_controller.dart';
+import 'package:flutter_game_module/pages/timeTravel/widget/drag_target_widget.dart';
+import 'package:flutter_game_module/routes/app_pages.dart';
+import 'package:flutter_game_module/shared/app_images.dart';
+import 'package:flutter_game_module/shared/theme/app_text.dart';
+import 'package:get_it/get_it.dart';
 import 'package:audioplayers/audioplayers.dart';
+
+import 'widget/draggable_widget.dart';
 
 class TimeTravel1Page extends StatefulWidget {
   const TimeTravel1Page({super.key});
@@ -14,9 +18,12 @@ class TimeTravel1Page extends StatefulWidget {
 }
 
 class _TimeTravel1PageState extends State<TimeTravel1Page> {
-  final audioplayer = AudioPlayer();
-  final confetti = ConfettiController(duration: const Duration(seconds: 5));
+  final route = GetIt.I.get<NavigationController>();
+  final confetti = ConfettiController(
+    duration: const Duration(seconds: 5),
+  );
   final ValueNotifier resetNotifier = ValueNotifier(0);
+  final audioplayer = AudioPlayer();
   bool soundOn = true;
   Map<String, bool> score = {"0": false, "1": false, "2": false, "3": false};
   final List<Map<String, String>> right = [
@@ -66,22 +73,27 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
   }
 
   void goToNextGame() {
-    //Verifico se todos os values são true com o ".reduce"
-    bool success = score.values.toList().reduce((a, b) => a && b);
-    if (success) {
-      confetti.play();
-      audioplayer.play(AssetSource('sounds/success_end.wav'));
-      //TODO: Retornar os dados para o nativo
-    }
+    route.push(name: AppPages.timeTravel2);
+
+    // //Verifico se todos os values são true com o ".reduce"
+    // bool success = score.values.toList().reduce((a, b) => a && b);
+    // if (success) {
+    //   confetti.play();
+    //   audioplayer.play(AssetSource('sounds/success_end.wav'));
+    //   //TODO: Retornar os dados para o nativo
+    //   route.push(name: AppPages.timeTravel1);
+    // }
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
-          "Score ${score.values.where((e) => e).length} / ${score.length}",
+          "Meus pontos ${score.values.where((e) => e).length} / ${score.length}",
         ),
         leading: Padding(
           padding: const EdgeInsets.only(top: 12),
@@ -125,6 +137,7 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              //Image
               Stack(
                 children: [
                   // Image
@@ -132,7 +145,7 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
                     height: 350,
                     width: 350,
                     child: Image.asset(
-                      'assets/images/image1.jpeg',
+                      AppImages.timeTravel1,
                       fit: BoxFit.fitHeight,
                     ),
                   ),
@@ -176,44 +189,16 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 200,
-                    height: 200,
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 16,
-                      ),
-                      itemCount: right.length,
-                      itemBuilder: (context, index) {
-                        final item = right[index];
-                        return Material(
-                          color: Colors.transparent,
-                          child: Draggable<Map<String, dynamic>>(
-                            data: item,
-                            onDragStarted: () {
-                              HapticHelper.vibrate(HapticsType.selection);
-                            },
-                            feedback: CircleAvatar(
-                              backgroundImage: NetworkImage(item['url']!),
-                              radius: 45,
-                            ),
-                            childWhenDragging: const CircleAvatar(
-                              backgroundColor: Colors.grey,
-                            ),
-                            child: score[item['value']] == true
-                                ? const Icon(
-                                    Icons.check_circle,
-                                    color: Colors.green,
-                                    size: 35,
-                                  )
-                                : CircleAvatar(
-                                    backgroundImage: NetworkImage(item['url']!),
-                                  ),
-                          ),
-                        );
-                      },
+                    width: size.width * 0.3,
+                    height: size.height * 0.45,
+                    child: Wrap(
+                      spacing: 16,
+                      runSpacing: 16,
+                      runAlignment: WrapAlignment.center,
+                      alignment: WrapAlignment.center,
+                      children: right
+                          .map((e) => DraggableWidget(score: score, item: e))
+                          .toList(),
                     ),
                   ),
                   const SizedBox(height: 22),
@@ -223,9 +208,15 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
+                        elevation: 4,
                       ),
                       onPressed: goToNextGame,
-                      child: const Text("Next", style: AppText.buttonText),
+                      child: Text(
+                        "Next",
+                        style: AppText.buttonText.copyWith(
+                          letterSpacing: 2,
+                        ),
+                      ),
                     ),
                   ),
                 ],
