@@ -1,14 +1,16 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_game_module/pages/timeTravel/widget/drag_target_widget.dart';
-import 'package:flutter_game_module/pages/timeTravel/widget/draggable_widget.dart';
-import 'package:flutter_game_module/routes/app_pages.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_game_module/pages/timeTravel/widget/drag_target_positioned_widget.dart';
 import 'package:flutter_game_module/shared/app_images.dart';
 import 'package:flutter_game_module/shared/theme/app_text.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../controllers/navigation_controller.dart';
+import '../../controllers/time_travel_controller.dart';
+import '../../shared/app_sounds.dart';
+import '../../shared/custom_snack.dart';
+import '../../shared/widgets/draggable_widget.dart';
 
 class TimeTravel2Page extends StatefulWidget {
   const TimeTravel2Page({super.key});
@@ -18,17 +20,21 @@ class TimeTravel2Page extends StatefulWidget {
 }
 
 class _TimeTravel2PageState extends State<TimeTravel2Page> {
-  final route = GetIt.I.get<NavigationController>();
-  final confetti = ConfettiController(duration: const Duration(seconds: 5));
+  final timeTravelController = GetIt.I.get<TimeTravelController>();
+  final snack = GetIt.I.get<CustomSnack>();
+
+  final confetti = ConfettiController(
+    duration: const Duration(seconds: 5),
+  );
   final ValueNotifier resetNotifier = ValueNotifier(0);
   final audioplayer = AudioPlayer();
   bool soundOn = true;
-  Map<String, bool> score = {
-    "0": false,
-    "1": false,
-    "2": false,
-    "3": false,
-    '4': false,
+  Map<String, String?> targets = {
+    "0": null,
+    "1": null,
+    "2": null,
+    "3": null,
+    '4': null,
   };
   final List<Map<String, String>> right = [
     {
@@ -59,6 +65,16 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
   ];
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    //OnGenerateRoute chama todas as rotas separadas /home/teste/1
+    //Esse codigo abaixo certifica que essa tela esta em execução
+    if (ModalRoute.of(context)?.isCurrent ?? false) {
+      audioplayer.play(AssetSource(AppSounds.timeTravel));
+    }
+  }
+
+  @override
   void dispose() {
     confetti.dispose();
     audioplayer.dispose();
@@ -69,27 +85,25 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
     // Aqui nao importa o dado, mas sim fazer uma alteração
     //Para os listener receberem
     resetNotifier.value++;
-    //Troca todos os pontos para false
     setState(
-      () => score = score.map((key, value) => MapEntry(key, false)),
+      () => targets = targets.map((key, value) => MapEntry(key, null)),
     );
   }
 
-  void onTargetAccept(DragTargetDetails<Map<String, dynamic>> details) {
-    audioplayer.play(AssetSource('sounds/success.wav'));
-    //Adiciono ao value do item true
-    setState(() => score[details.data['value']] = true);
+  void onTargetAccept({
+    required String target,
+    required DragTargetDetails<Map<String, dynamic>> details,
+  }) {
+    setState(() => targets[target] = details.data['value']);
   }
 
-  void goToNextGame() {
-    route.push(name: AppPages.congratulations, args: "150");
-    // //Verifico se todos os values são true com o ".reduce"
-    // bool success = score.values.toList().reduce((a, b) => a && b);
-    // if (success) {
-    //   confetti.play();
-    //   audioplayer.play(AssetSource('sounds/success_end.wav'));
-    //   //TODO: Retornar os dados para o nativo
-    // }
+  void onSubmit() {
+    bool res = targets.values.contains(null);
+    if (res) {
+      snack.warning(text: 'Place all cards to continue');
+      return;
+    }
+    timeTravelController.checkGameScore(targets);
   }
 
   @override
@@ -99,16 +113,16 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(
-          "Meus pontos ${score.values.where((e) => e).length} / ${score.length}",
-        ),
         leading: Padding(
           padding: const EdgeInsets.only(top: 12),
           child: CircleAvatar(
             backgroundColor: Colors.grey[300],
             radius: 25,
-            child: Icon(
-              Icons.close,
+            child: IconButton(
+              onPressed: () {
+                SystemNavigator.pop();
+              },
+              icon: const Icon(Icons.close),
               color: Colors.grey[800],
             ),
           ),
@@ -157,45 +171,60 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
                     ),
                   ),
                   // Widgets DragTarget
-                  DragTargetWidget(
+                  DragTargetPositionedWidget(
                     top: 12,
                     left: 140,
                     targetValue: '0',
                     resetNotifier: resetNotifier,
                     backgroundColor: Colors.green,
-                    onAcceptItem: onTargetAccept,
+                    onAcceptItem: (value) => onTargetAccept(
+                      target: '0',
+                      details: value,
+                    ),
                   ),
-                  DragTargetWidget(
+                  DragTargetPositionedWidget(
                     top: 92,
                     right: 30,
                     targetValue: '1',
                     resetNotifier: resetNotifier,
                     backgroundColor: Colors.red,
-                    onAcceptItem: onTargetAccept,
+                    onAcceptItem: (value) => onTargetAccept(
+                      target: '1',
+                      details: value,
+                    ),
                   ),
-                  DragTargetWidget(
+                  DragTargetPositionedWidget(
                     bottom: 15,
                     right: 75,
                     targetValue: '2',
                     resetNotifier: resetNotifier,
                     backgroundColor: Colors.blue,
-                    onAcceptItem: onTargetAccept,
+                    onAcceptItem: (value) => onTargetAccept(
+                      target: '2',
+                      details: value,
+                    ),
                   ),
-                  DragTargetWidget(
+                  DragTargetPositionedWidget(
                     bottom: 15,
                     left: 75,
                     targetValue: '3',
                     resetNotifier: resetNotifier,
                     backgroundColor: Colors.black,
-                    onAcceptItem: onTargetAccept,
+                    onAcceptItem: (value) => onTargetAccept(
+                      target: '3',
+                      details: value,
+                    ),
                   ),
-                  DragTargetWidget(
+                  DragTargetPositionedWidget(
                     top: 92,
                     left: 30,
                     targetValue: '4',
                     resetNotifier: resetNotifier,
                     backgroundColor: Colors.pink,
-                    onAcceptItem: onTargetAccept,
+                    onAcceptItem: (value) => onTargetAccept(
+                      target: '4',
+                      details: value,
+                    ),
                   ),
                 ],
               ),
@@ -212,7 +241,8 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
                       runAlignment: WrapAlignment.center,
                       alignment: WrapAlignment.center,
                       children: right
-                          .map((e) => DraggableWidget(score: score, item: e))
+                          .map(
+                              (e) => DraggableWidget(targets: targets, item: e))
                           .toList(),
                     ),
                   ),
@@ -225,7 +255,7 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
                         backgroundColor: Colors.green,
                         elevation: 4,
                       ),
-                      onPressed: goToNextGame,
+                      onPressed: onSubmit,
                       child: Text(
                         "Next",
                         style: AppText.buttonText.copyWith(
@@ -243,7 +273,6 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
             alignment: Alignment.center,
             child: ConfettiWidget(
               confettiController: confetti,
-              // blastDirection: pi / 2,
               blastDirectionality: BlastDirectionality.explosive,
               shouldLoop: false,
               emissionFrequency: 0.05,

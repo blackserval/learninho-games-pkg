@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_game_module/helper/haptic_helper.dart';
-import 'package:haptic_feedback/haptic_feedback.dart';
 
-class DragTargetWidget extends StatefulWidget {
+class DragTargetPositionedWidget extends StatefulWidget {
   final double? top;
   final double? left;
   final double? right;
@@ -13,7 +11,7 @@ class DragTargetWidget extends StatefulWidget {
   //Usado para o widget pai resetar os filhos
   final ValueNotifier resetNotifier;
 
-  const DragTargetWidget({
+  const DragTargetPositionedWidget({
     super.key,
     this.top,
     this.left,
@@ -26,10 +24,12 @@ class DragTargetWidget extends StatefulWidget {
   });
 
   @override
-  State<DragTargetWidget> createState() => _DragTargetWidgetState();
+  State<DragTargetPositionedWidget> createState() =>
+      _DragTargetPositionedWidgetState();
 }
 
-class _DragTargetWidgetState extends State<DragTargetWidget> {
+class _DragTargetPositionedWidgetState
+    extends State<DragTargetPositionedWidget> {
   Map<String, String>? dataReceived;
 
   @override
@@ -67,13 +67,14 @@ class _DragTargetWidgetState extends State<DragTargetWidget> {
           );
         },
         onWillAcceptWithDetails: (details) {
-          if (details.data['value'] == widget.targetValue) {
-            HapticHelper.vibrate(HapticsType.success);
-            return true;
-          } else {
-            HapticHelper.vibrate(HapticsType.error);
-            return false;
-          }
+          return true;
+          // if (details.data['value'] == widget.targetValue) {
+          //   HapticHelper.vibrate(HapticsType.success);
+          //   return true;
+          // } else {
+          //   HapticHelper.vibrate(HapticsType.error);
+          //   return false;
+          // }
         },
         onAcceptWithDetails: (details) {
           setState(() => dataReceived = details.data);

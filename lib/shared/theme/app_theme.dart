@@ -7,6 +7,7 @@ class AppTheme {
     fontFamily: 'Fredoka',
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(appBorderRadius),
         ),

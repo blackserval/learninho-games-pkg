@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_game_module/model/arguments/congratulation_page_args.dart';
 import 'package:flutter_game_module/pages/congratulation/congratulation_page.dart';
-import 'package:flutter_game_module/pages/timeTravel/time_travel_2_page.dart';
+import 'package:flutter_game_module/pages/magicWord/magic_word_page.dart';
 import 'package:flutter_game_module/routes/app_pages.dart';
 import 'package:flutter_game_module/pages/timeTravel/time_travel_1_page.dart';
+import 'package:flutter_game_module/shared/widgets/not_found_page.dart';
+
+import '../pages/timeTravel/time_travel_2_page.dart';
 
 class CustomRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     return switch (settings.name) {
+      AppPages.timeTravel1 =>
+        MaterialPageRoute(builder: (_) => const TimeTravel1Page()),
+      AppPages.timeTravel2 =>
+        MaterialPageRoute(builder: (_) => const TimeTravel2Page()),
+      AppPages.magicWord =>
+        MaterialPageRoute(builder: (_) => const MagicWordPage()),
       AppPages.congratulations => MaterialPageRoute(
           builder: (_) => CongratulationsPage(
-            points: settings.arguments as String,
+            model: settings.arguments as CongratulationPageArgs,
           ),
         ),
-      AppPages.timeTravel1 => MaterialPageRoute(
-          builder: (_) => const TimeTravel1Page(),
-        ),
-      AppPages.timeTravel2 => MaterialPageRoute(
-          builder: (_) => const TimeTravel2Page(),
-        ),
-      _ => MaterialPageRoute(
-          builder: (_) => const TimeTravel1Page(),
-        ),
+
+      //Default
+      _ => MaterialPageRoute(builder: (_) => const NotFoundPage()),
     };
   }
 }

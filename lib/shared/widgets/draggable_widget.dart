@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:haptic_feedback/haptic_feedback.dart';
 
-import '../../../helper/haptic_helper.dart';
+import '../../helper/haptic_helper.dart';
 
 class DraggableWidget extends StatelessWidget {
-  final Map<String, dynamic> score;
+  final Map<String, String?> targets;
   final Map<String, dynamic> item;
+  final double radius;
 
   const DraggableWidget({
     super.key,
-    required this.score,
+    required this.targets,
     required this.item,
+    this.radius = 40,
   });
 
   @override
   Widget build(BuildContext context) {
+    bool contain = targets.values.contains(item['value']);
+
     return Material(
       color: Colors.transparent,
       child: Draggable<Map<String, dynamic>>(
@@ -29,14 +33,10 @@ class DraggableWidget extends StatelessWidget {
         childWhenDragging: const CircleAvatar(
           backgroundColor: Colors.grey,
         ),
-        child: score[item['value']] == true
-            ? const Icon(
-                Icons.check_circle,
-                color: Colors.green,
-                size: 80,
-              )
+        child: contain
+            ? const SizedBox.shrink()
             : CircleAvatar(
-              radius: 40,
+                radius: radius,
                 backgroundImage: NetworkImage(item['url']!),
               ),
       ),

@@ -22,10 +22,14 @@ class NativeBridge {
     _channel.setMethodCallHandler(
       (MethodCall call) async {
         switch (call.method) {
-          case AppConstants.methodReceiveDataFromNative:
-            receiveDataFromNative(call.arguments);
           case AppConstants.methodTimeTravel1:
             route.push(name: AppPages.timeTravel1);
+            break;
+          case AppConstants.methodTimeTravel2:
+            route.push(name: AppPages.timeTravel2);
+            break;
+          case AppConstants.methodMagicWord:
+            route.push(name: AppPages.magicWord);
             break;
           default:
             throw MissingPluginException();
@@ -34,15 +38,19 @@ class NativeBridge {
     );
   }
 
+  //Receive data
+  //
   receiveDataFromNative(dynamic data) async {
     debugPrint("Dados vindo do Swift $data");
   }
 
-  static Future<void> sendDataToNative(String data) async {
-    try {
-      await _channel.invokeMethod(AppConstants.methodSendDataToNative, data);
-    } catch (e) {
-      debugPrint('Erro ao enviar dados para o Swift: $e');
-    }
-  }
+  //Send data
+  //
+  // static Future<void> sendDataToNative(String data) async {
+  //   try {
+  //     await _channel.invokeMethod(AppConstants.methodSendDataToNative, data);
+  //   } catch (e) {
+  //     debugPrint('Erro ao enviar dados para o Swift: $e');
+  //   }
+  // }
 }
