@@ -1,0 +1,52 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "App Android GPhone",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "emulator-5554",
+        },
+        {
+            "name": "App IOS_15ProMax",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "C516231D-0FB1-4856-88C9-78AF60C878E5",
+        },
+        {
+            "name": "App IOS_SE",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "4F7EB796-1A5D-4B2A-8CAA-955284E1D5C8",
+        },
+        {
+            "name": "flutter_game_module",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "flutter_game_module (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "flutter_game_module (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "All Devices",
+            "configurations": [
+                "App IOS_SE",
+                "App Android GPhone",
+            ]
+        }
+    ],
+}

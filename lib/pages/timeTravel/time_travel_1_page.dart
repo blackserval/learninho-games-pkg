@@ -26,13 +26,13 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
 
   final resetNotifier = ValueNotifier(0);
   final audioplayer = AudioPlayer();
+  final double stackWidth = 350;
+  final double stackHeight = 350;
   Map<String, String?> targets = {'0': null, '1': null, '2': null, '3': null};
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    //OnGenerateRoute chama todas as rotas separadas /home/teste/1
-    //Esse codigo abaixo certifica que essa tela esta em execução
     if (ModalRoute.of(context)?.isCurrent ?? false) {
       audioplayer.play(AssetSource(AppSounds.timeTravel));
     }
@@ -81,64 +81,67 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           //Image
-          Stack(
-            children: [
-              // Image
-              SizedBox(
-                height: 350,
-                width: 350,
-                child: Image.asset(
+          SizedBox(
+            height: stackHeight,
+            width: stackWidth,
+            child: Stack(
+              children: [
+                // Image
+                Image.asset(
                   AppImages.timeTravel1,
-                  fit: BoxFit.fitHeight,
+                  fit: BoxFit.contain,
+                  width: 350,
+                  height: 350,
                 ),
-              ),
-              // Widgets DragTarget
-              DragTargetPositionedWidget(
-                top: 27,
-                left: 140,
-                targetValue: '0',
-                resetNotifier: resetNotifier,
-                backgroundColor: Colors.green,
-                onAcceptItem: (value) => onTargetAccept(
-                  target: '0',
-                  details: value,
+                // Widgets DragTarget
+                DragTargetPositionedWidget(
+                  top: stackHeight * 0.10, //27,
+                  left: stackWidth * 0.41, //140,
+                  targetValue: '0',
+                  resetNotifier: resetNotifier,
+                  backgroundColor: Colors.green,
+                  onAcceptItem: (value) => onTargetAccept(
+                    target: '0',
+                    details: value,
+                  ),
                 ),
-              ),
-              DragTargetPositionedWidget(
-                top: 115,
-                right: 38,
-                targetValue: '1',
-                resetNotifier: resetNotifier,
-                backgroundColor: Colors.red,
-                onAcceptItem: (value) => onTargetAccept(
-                  target: '1',
-                  details: value,
+                DragTargetPositionedWidget(
+                  top: stackHeight * 0.345, // 102,
+                  right: stackWidth * 0.14, //65,
+                  targetValue: '1',
+                  resetNotifier: resetNotifier,
+                  backgroundColor: Colors.red,
+                  onAcceptItem: (value) => onTargetAccept(
+                    target: '1',
+                    details: value,
+                  ),
                 ),
-              ),
-              DragTargetPositionedWidget(
-                bottom: 30,
-                right: 139,
-                targetValue: '2',
-                resetNotifier: resetNotifier,
-                backgroundColor: Colors.blue,
-                onAcceptItem: (value) => onTargetAccept(
-                  target: '2',
-                  details: value,
+                DragTargetPositionedWidget(
+                  bottom: stackHeight * 0.095, //28,
+                  right: stackWidth * 0.41, //142,
+                  targetValue: '2',
+                  resetNotifier: resetNotifier,
+                  backgroundColor: Colors.blue,
+                  onAcceptItem: (value) => onTargetAccept(
+                    target: '2',
+                    details: value,
+                  ),
                 ),
-              ),
-              DragTargetPositionedWidget(
-                bottom: 115,
-                left: 47,
-                targetValue: '3',
-                resetNotifier: resetNotifier,
-                backgroundColor: Colors.black,
-                onAcceptItem: (value) => onTargetAccept(
-                  target: '3',
-                  details: value,
+                DragTargetPositionedWidget(
+                  bottom: stackHeight * 0.345, //102,
+                  left: stackWidth * 0.139, //65,
+                  targetValue: '3',
+                  resetNotifier: resetNotifier,
+                  backgroundColor: Colors.black,
+                  onAcceptItem: (value) => onTargetAccept(
+                    target: '3',
+                    details: value,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
+
           // Widgets Draggable
           Column(
             mainAxisAlignment: MainAxisAlignment.center,

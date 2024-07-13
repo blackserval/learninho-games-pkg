@@ -58,10 +58,10 @@ class _DragTargetPositionedWidgetState
       child: DragTarget<Map<String, String>>(
         builder: (context, candidateData, rejectedData) {
           return CircleAvatar(
-            radius: 35,
+            radius: 30,
             // backgroundColor: widget.backgroundColor,
             backgroundColor: Colors.transparent,
-            backgroundImage: dataReceived != null
+            foregroundImage: dataReceived != null
                 ? NetworkImage(dataReceived!['url']!)
                 : null,
           );

@@ -4,7 +4,7 @@ import 'package:flutter_game_module/config/locators.dart';
 import 'package:flutter_game_module/utils/native_bridge.dart';
 import 'app.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   //Configure controller`s
@@ -14,7 +14,7 @@ void main() {
   NativeBridge.instance.setupMethodChannel();
 
   //Lock screen to landscape
-  SystemChrome.setPreferredOrientations([
+  await SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeRight,
     DeviceOrientation.landscapeLeft,
   ]);
