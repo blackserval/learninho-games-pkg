@@ -57,7 +57,10 @@ class _DragTargetWidgetState extends State<DragTargetWidget> {
               color: widget.backgroundColor,
               image: dataReceived?['url'],
             ),
-          WidgetType.square => throw UnimplementedError(),
+          WidgetType.square => RectangleWidget(
+              color: widget.backgroundColor,
+              image: dataReceived?['url'],
+            ),
         };
       },
       onWillAcceptWithDetails: (details) {
