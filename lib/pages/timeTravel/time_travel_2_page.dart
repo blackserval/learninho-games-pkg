@@ -1,15 +1,17 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_game_module/config/constants.dart';
 import 'package:flutter_game_module/pages/timeTravel/widget/drag_target_positioned_widget.dart';
 import 'package:flutter_game_module/shared/app_images.dart';
 import 'package:flutter_game_module/shared/theme/app_text.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter_game_module/shared/widgets/custom_bottom_bar.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../controllers/time_travel_controller.dart';
 import '../../shared/app_sounds.dart';
 import '../../shared/custom_snack.dart';
+import '../../shared/widgets/custom_appbar.dart';
 import '../../shared/widgets/draggable_widget.dart';
 
 class TimeTravel2Page extends StatefulWidget {
@@ -28,7 +30,6 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
   );
   final ValueNotifier resetNotifier = ValueNotifier(0);
   final audioplayer = AudioPlayer();
-  bool soundOn = true;
   Map<String, String?> targets = {
     "0": null,
     "1": null,
@@ -36,39 +37,10 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
     "3": null,
     '4': null,
   };
-  final List<Map<String, String>> right = [
-    {
-      "url":
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1224px-NASA_logo.svg.png",
-      "value": "0"
-    },
-    {
-      "url":
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1224px-NASA_logo.svg.png",
-      "value": "1"
-    },
-    {
-      "url":
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1224px-NASA_logo.svg.png",
-      "value": "2"
-    },
-    {
-      "url":
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1224px-NASA_logo.svg.png",
-      "value": "3"
-    },
-    {
-      "url":
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1224px-NASA_logo.svg.png",
-      "value": "4"
-    },
-  ];
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    //OnGenerateRoute chama todas as rotas separadas /home/teste/1
-    //Esse codigo abaixo certifica que essa tela esta em execução
     if (ModalRoute.of(context)?.isCurrent ?? false) {
       audioplayer.play(AssetSource(AppSounds.timeTravel));
     }
@@ -103,7 +75,7 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
       snack.warning(text: 'Place all cards to continue');
       return;
     }
-    timeTravelController.checkGameScore(targets);
+    // timeTravelController.checkGameScore(targets);
   }
 
   @override
@@ -111,48 +83,8 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: Padding(
-          padding: const EdgeInsets.only(top: 12),
-          child: CircleAvatar(
-            backgroundColor: Colors.grey[300],
-            radius: 25,
-            child: IconButton(
-              onPressed: () {
-                SystemNavigator.pop();
-              },
-              icon: const Icon(Icons.close),
-              color: Colors.grey[800],
-            ),
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: resetGame,
-            icon: const Icon(Icons.refresh),
-          )
-        ],
-      ),
-      bottomNavigationBar: SafeArea(
-        child: Row(
-          children: [
-            CircleAvatar(
-              backgroundColor: Colors.grey[300],
-              radius: 25,
-              child: IconButton(
-                onPressed: () {
-                  setState(() => soundOn = !soundOn);
-                },
-                icon: soundOn
-                    ? const Icon(Icons.volume_up_rounded)
-                    : const Icon(Icons.volume_off_rounded),
-                color: Colors.grey[800],
-              ),
-            ),
-          ],
-        ),
-      ),
+      appBar: CustomAppbar(refreh: resetGame),
+      bottomNavigationBar: const CustomBottomBar(),
       body: Stack(
         children: [
           Row(
@@ -240,9 +172,12 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
                       runSpacing: 16,
                       runAlignment: WrapAlignment.center,
                       alignment: WrapAlignment.center,
-                      children: right
-                          .map(
-                              (e) => DraggableWidget(targets: targets, item: e))
+                      children: timeTravel2Test
+                          .map((e) => DraggableWidget(
+                                targets: targets,
+                                item: e,
+                                widgetType: WidgetType.circle,
+                              ))
                           .toList(),
                     ),
                   ),

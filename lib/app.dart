@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.theme,
       scaffoldMessengerKey: locator.get<CustomSnack>().snackbarKey,
       //Route config
-      initialRoute: AppPages.timeTravel1,
+      initialRoute: AppPages.magicWord1,
       onGenerateRoute: CustomRouter.generateRoute,
       navigatorKey: locator.get<NavigationController>().navigatorKey,
       //End route config

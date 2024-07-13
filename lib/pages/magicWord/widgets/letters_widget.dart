@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../config/constants.dart';
 import '../../../shared/widgets/draggable_widget.dart';
 
 class LettersWidget extends StatelessWidget {
@@ -28,7 +29,8 @@ class LettersWidget extends StatelessWidget {
             .map((e) => DraggableWidget(
                   targets: targets,
                   item: e,
-                  radius: 30,
+                  radius: 35,
+                  widgetType: WidgetType.rectangle,
                 ))
             .toList(),
       ),

@@ -28,8 +28,11 @@ class NativeBridge {
           case AppConstants.methodTimeTravel2:
             route.push(name: AppPages.timeTravel2);
             break;
-          case AppConstants.methodMagicWord:
-            route.push(name: AppPages.magicWord);
+          case AppConstants.methodMagicWord1:
+            route.push(name: AppPages.magicWord1);
+            break;
+          case AppConstants.methodMagicWord2:
+            route.push(name: AppPages.magicWord2);
             break;
           default:
             throw MissingPluginException();
