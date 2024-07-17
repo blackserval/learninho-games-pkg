@@ -1,13 +1,11 @@
-import 'package:audioplayers/audioplayers.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_game_module/config/constants.dart';
 import 'package:flutter_game_module/shared/widgets/custom_appbar.dart';
 import 'package:flutter_game_module/shared/widgets/drag_target_widget.dart';
 import 'package:flutter_game_module/pages/magicWord/widgets/letters_widget.dart';
 
-import '../../shared/app_sounds.dart';
 import '../../shared/theme/app_text.dart';
-import '../../shared/widgets/custom_bottom_bar.dart';
 
 class MagicWordPage2 extends StatefulWidget {
   const MagicWordPage2({super.key});
@@ -18,16 +16,7 @@ class MagicWordPage2 extends StatefulWidget {
 
 class _MagicWordPage2State extends State<MagicWordPage2> {
   Map<String, String?> targets = {'0': null, '1': null, '2': null, '3': null};
-  final audioplayer = AudioPlayer();
   final resetNotifier = ValueNotifier(0);
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (ModalRoute.of(context)?.isCurrent ?? false) {
-      audioplayer.play(AssetSource(AppSounds.timeTravel));
-    }
-  }
 
   void resetGame() {
     resetNotifier.value++;
@@ -48,7 +37,6 @@ class _MagicWordPage2State extends State<MagicWordPage2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(refreh: resetGame),
-      bottomNavigationBar: const CustomBottomBar(),
       body: SafeArea(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

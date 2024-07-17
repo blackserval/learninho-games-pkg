@@ -6,10 +6,12 @@ O nome do canal para fazer a conexão com o modulo é:
 
 `com.example.flutter_game_module.host/nativeCommunication`
 
-Para entrar no jogo TimeTravel chame o metodo:
+Use o methodChannel "goToPage" para enviar os dados
+Nos arguments passe o nome da tela dessa forma:
 
-`methodTimeTravel1` ou `methodTimeTravel2`
+/timeTravel1
+/timeTravel2
+/magicWord1
+/magicWord2
 
-Para entrar no jogo MagicWord chame o metodo:
 
-`methodMagicWord`

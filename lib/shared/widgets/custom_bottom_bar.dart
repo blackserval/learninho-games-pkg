@@ -12,12 +12,13 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return Container(
+      color: Colors.green,
       child: Row(
         children: [
           CircleAvatar(
             backgroundColor: Colors.grey[300],
-            radius: 25,
+            radius: 20,
             child: IconButton(
               onPressed: () {
                 setState(() => soundOn = !soundOn);

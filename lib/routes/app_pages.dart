@@ -4,4 +4,5 @@ class AppPages {
   static const String congratulations = "/congratulations";
   static const String magicWord1 = "/magicWord1";
   static const String magicWord2 = "/magicWord2";
+  static const String splash = "/splash";
 }

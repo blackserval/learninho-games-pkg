@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class RectangleWidget extends StatelessWidget {
   final String? image;
-  final Color color;
+  final Color? color;
 
   const RectangleWidget({
     super.key,

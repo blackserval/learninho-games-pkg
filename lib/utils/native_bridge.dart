@@ -1,8 +1,9 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_game_module/config/constants.dart';
 import 'package:flutter_game_module/controllers/navigation_controller.dart';
-import 'package:flutter_game_module/routes/app_pages.dart';
+import 'package:flutter_game_module/shared/custom_snack.dart';
 import 'package:get_it/get_it.dart';
 
 class NativeBridge {
@@ -17,22 +18,15 @@ class NativeBridge {
   );
 
   NavigationController get route => GetIt.I.get<NavigationController>();
+  CustomSnack get snack => GetIt.I.get<CustomSnack>();
+  final audioplayer = AudioPlayer();
 
   setupMethodChannel() {
     _channel.setMethodCallHandler(
       (MethodCall call) async {
         switch (call.method) {
-          case AppConstants.methodTimeTravel1:
-            route.push(name: AppPages.timeTravel1);
-            break;
-          case AppConstants.methodTimeTravel2:
-            route.push(name: AppPages.timeTravel2);
-            break;
-          case AppConstants.methodMagicWord1:
-            route.push(name: AppPages.magicWord1);
-            break;
-          case AppConstants.methodMagicWord2:
-            route.push(name: AppPages.magicWord2);
+          case AppConstants.goToPage:
+            route.push(name: call.arguments);
             break;
           default:
             throw MissingPluginException();

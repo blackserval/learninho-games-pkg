@@ -1,13 +1,11 @@
-import 'package:audioplayers/audioplayers.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_game_module/config/constants.dart';
 import 'package:flutter_game_module/shared/widgets/drag_target_widget.dart';
 import 'package:flutter_game_module/pages/magicWord/widgets/letters_widget.dart';
 
-import '../../shared/app_sounds.dart';
 import '../../shared/theme/app_text.dart';
 import '../../shared/widgets/custom_appbar.dart';
-import '../../shared/widgets/custom_bottom_bar.dart';
 
 class MagicWordPage1 extends StatefulWidget {
   const MagicWordPage1({super.key});
@@ -18,16 +16,7 @@ class MagicWordPage1 extends StatefulWidget {
 
 class _MagicWordPage1State extends State<MagicWordPage1> {
   Map<String, String?> targets = {'0': null, '1': null, '2': null, '3': null};
-  final audioplayer = AudioPlayer();
   final resetNotifier = ValueNotifier(0);
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (ModalRoute.of(context)?.isCurrent ?? false) {
-      audioplayer.play(AssetSource(AppSounds.timeTravel));
-    }
-  }
 
   void resetGame() {
     // Aqui nao importa o dado, mas sim fazer uma alteração
@@ -50,7 +39,6 @@ class _MagicWordPage1State extends State<MagicWordPage1> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(refreh: resetGame),
-      bottomNavigationBar: const CustomBottomBar(),
       body: SafeArea(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_game_module/config/constants.dart';
 import 'package:flutter_game_module/controllers/time_travel_controller.dart';
-import 'package:flutter_game_module/pages/timeTravel/widget/drag_target_positioned_widget.dart';
-import 'package:flutter_game_module/shared/app_images.dart';
-import 'package:flutter_game_module/shared/app_sounds.dart';
+import 'package:flutter_game_module/pages/timeTravel/widget/target_grid_widget.dart';
 import 'package:flutter_game_module/shared/custom_snack.dart';
 import 'package:flutter_game_module/shared/theme/app_text.dart';
 import 'package:get_it/get_it.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 import '../../shared/widgets/custom_appbar.dart';
-import '../../shared/widgets/custom_bottom_bar.dart';
 import '../../shared/widgets/draggable_widget.dart';
 
 class TimeTravel1Page extends StatefulWidget {
@@ -23,26 +19,9 @@ class TimeTravel1Page extends StatefulWidget {
 class _TimeTravel1PageState extends State<TimeTravel1Page> {
   final timeTravelController = GetIt.I.get<TimeTravelController>();
   final snack = GetIt.I.get<CustomSnack>();
-
   final resetNotifier = ValueNotifier(0);
-  final audioplayer = AudioPlayer();
-  final double stackWidth = 350;
-  final double stackHeight = 350;
+
   Map<String, String?> targets = {'0': null, '1': null, '2': null, '3': null};
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (ModalRoute.of(context)?.isCurrent ?? false) {
-      audioplayer.play(AssetSource(AppSounds.timeTravel));
-    }
-  }
-
-  @override
-  void dispose() {
-    audioplayer.dispose();
-    super.dispose();
-  }
 
   void resetGame() {
     // Aqui nao importa o dado, mas sim fazer uma alteração
@@ -76,72 +55,23 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
 
     return Scaffold(
       appBar: CustomAppbar(refreh: resetGame),
-      bottomNavigationBar: const CustomBottomBar(),
+      // bottomNavigationBar: const CustomBottomBar(),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           //Image
-          SizedBox(
-            height: stackHeight,
-            width: stackWidth,
-            child: Stack(
-              children: [
-                // Image
-                Image.asset(
-                  AppImages.timeTravel1,
-                  fit: BoxFit.contain,
-                  width: 350,
-                  height: 350,
-                ),
-                // Widgets DragTarget
-                DragTargetPositionedWidget(
-                  top: stackHeight * 0.10, //27,
-                  left: stackWidth * 0.41, //140,
-                  targetValue: '0',
-                  resetNotifier: resetNotifier,
-                  backgroundColor: Colors.green,
-                  onAcceptItem: (value) => onTargetAccept(
-                    target: '0',
-                    details: value,
-                  ),
-                ),
-                DragTargetPositionedWidget(
-                  top: stackHeight * 0.345, // 102,
-                  right: stackWidth * 0.14, //65,
-                  targetValue: '1',
-                  resetNotifier: resetNotifier,
-                  backgroundColor: Colors.red,
-                  onAcceptItem: (value) => onTargetAccept(
-                    target: '1',
-                    details: value,
-                  ),
-                ),
-                DragTargetPositionedWidget(
-                  bottom: stackHeight * 0.095, //28,
-                  right: stackWidth * 0.41, //142,
-                  targetValue: '2',
-                  resetNotifier: resetNotifier,
-                  backgroundColor: Colors.blue,
-                  onAcceptItem: (value) => onTargetAccept(
-                    target: '2',
-                    details: value,
-                  ),
-                ),
-                DragTargetPositionedWidget(
-                  bottom: stackHeight * 0.345, //102,
-                  left: stackWidth * 0.139, //65,
-                  targetValue: '3',
-                  resetNotifier: resetNotifier,
-                  backgroundColor: Colors.black,
-                  onAcceptItem: (value) => onTargetAccept(
-                    target: '3',
-                    details: value,
-                  ),
-                ),
-              ],
-            ),
+          // Target1Widget(
+          //   resetNotifier: resetNotifier,
+          //   onTargetAccept: (target, detail) {
+          //     onTargetAccept(target: target, details: detail);
+          //   },
+          // ),
+          TargetGridWidget(
+            resetNotifier: resetNotifier,
+            onTargetAccept: (target, detail) {
+              onTargetAccept(target: target, details: detail);
+            },
           ),
-
           // Widgets Draggable
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -160,6 +90,7 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
                             targets: targets,
                             item: e,
                             widgetType: WidgetType.circle,
+                            color: Colors.red,
                           ))
                       .toList(),
                 ),

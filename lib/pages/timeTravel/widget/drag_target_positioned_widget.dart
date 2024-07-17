@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_game_module/shared/widgets/circle_widget.dart';
 
 class DragTargetPositionedWidget extends StatefulWidget {
   final double? top;
@@ -57,29 +58,20 @@ class _DragTargetPositionedWidgetState
       bottom: widget.bottom,
       child: DragTarget<Map<String, String>>(
         builder: (context, candidateData, rejectedData) {
-          return CircleAvatar(
-            radius: 30,
-            // backgroundColor: widget.backgroundColor,
-            backgroundColor: Colors.transparent,
-            foregroundImage: dataReceived != null
-                ? NetworkImage(dataReceived!['url']!)
-                : null,
+          return CircleWidget(
+            color: widget.backgroundColor,
+            image: dataReceived == null ? null : dataReceived!['url'],
+            size: const Size(65, 65),
           );
         },
         onWillAcceptWithDetails: (details) {
           return true;
           // if (details.data['value'] == widget.targetValue) {
-          //   HapticHelper.vibrate(HapticsType.success);
           //   return true;
-          // } else {
-          //   HapticHelper.vibrate(HapticsType.error);
-          //   return false;
           // }
         },
         onAcceptWithDetails: (details) {
           setState(() => dataReceived = details.data);
-          //Retorno para o widget pai os dados que foram aceitos
-          //e entraram no target
           widget.onAcceptItem(details);
         },
       ),

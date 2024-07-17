@@ -1,5 +1,5 @@
-
 enum WidgetType { circle, rectangle, square }
+
 class AppConstants {
   static String channelName =
       "com.example.flutter_game_module.host/nativeCommunication";
@@ -8,6 +8,7 @@ class AppConstants {
   static const String methodTimeTravel2 = "methodTimeTravel2";
   static const String methodMagicWord1 = "methodMagicWord1";
   static const String methodMagicWord2 = "methodMagicWord2";
+  static const String goToPage = "goToPage";
 }
 
 final List<Map<String, String>> magicWordTest2 = [
@@ -102,22 +103,22 @@ final List<Map<String, String>> timeTravel2Test = [
 final List<Map<String, String>> timeTravel1Test = [
   {
     "url":
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1224px-NASA_logo.svg.png",
+        "https://www.creativefabrica.com/wp-content/uploads/2023/09/05/Nature-wallpaper-Graphics-78543985-1.jpg",
     "value": "0"
   },
   {
     "url":
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1224px-NASA_logo.svg.png",
+        "https://www.creativefabrica.com/wp-content/uploads/2023/09/05/Nature-wallpaper-Graphics-78543985-1.jpg",
     "value": "1"
   },
   {
     "url":
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1224px-NASA_logo.svg.png",
+        "https://www.creativefabrica.com/wp-content/uploads/2023/09/05/Nature-wallpaper-Graphics-78543985-1.jpg",
     "value": "2"
   },
   {
     "url":
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1224px-NASA_logo.svg.png",
+        "https://www.creativefabrica.com/wp-content/uploads/2023/09/05/Nature-wallpaper-Graphics-78543985-1.jpg",
     "value": "3"
   },
 ];

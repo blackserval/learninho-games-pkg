@@ -11,6 +11,7 @@ class DraggableWidget extends StatelessWidget {
   final Map<String, dynamic> item;
   final double radius;
   final WidgetType widgetType;
+  final Color? color;
 
   const DraggableWidget({
     super.key,
@@ -18,6 +19,7 @@ class DraggableWidget extends StatelessWidget {
     required this.item,
     this.radius = 40,
     required this.widgetType,
+    this.color,
   });
 
   @override
@@ -32,9 +34,18 @@ class DraggableWidget extends StatelessWidget {
           HapticHelper.vibrate(HapticsType.selection);
         },
         feedback: switch (widgetType) {
-          WidgetType.circle => CircleWidget(image: item['url']),
-          WidgetType.rectangle => RectangleWidget(image: item['url']),
-          WidgetType.square => RectangleWidget(image: item['url']),
+          WidgetType.circle => CircleWidget(
+              image: item['url'],
+              color: color,
+            ),
+          WidgetType.rectangle => RectangleWidget(
+              image: item['url'],
+              color: color,
+            ),
+          WidgetType.square => RectangleWidget(
+              image: item['url'],
+              color: color,
+            ),
         },
         childWhenDragging: switch (widgetType) {
           WidgetType.circle => const CircleWidget(color: Colors.grey),
@@ -44,9 +55,18 @@ class DraggableWidget extends StatelessWidget {
         child: contain
             ? const SizedBox.shrink()
             : switch (widgetType) {
-                WidgetType.circle => CircleWidget(image: item['url']),
-                WidgetType.rectangle => RectangleWidget(image: item['url']),
-                WidgetType.square => RectangleWidget(image: item['url']),
+                WidgetType.circle => CircleWidget(
+                    image: item['url'],
+                    color: color,
+                  ),
+                WidgetType.rectangle => RectangleWidget(
+                    image: item['url'],
+                    color: color,
+                  ),
+                WidgetType.square => RectangleWidget(
+                    image: item['url'],
+                    color: color,
+                  ),
               },
       ),
     );

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class NavigationController {
   final navigatorKey = GlobalKey<NavigatorState>();
 
+  String pageReceived = "";
+
   Future<dynamic> push({required String name, Object? args}) {
     return navigatorKey.currentState!.pushNamed(
       name,
