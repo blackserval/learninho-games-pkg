@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../utils/responsive_widget.dart';
 
-class RectangleWidget extends StatelessWidget {
+class SquareWidget extends StatelessWidget {
   final String? image;
   final Color? color;
 
-  const RectangleWidget({
+  const SquareWidget({
     super.key,
     this.image,
     this.color = Colors.transparent,
@@ -16,7 +16,7 @@ class RectangleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: ResponsiveWidget.isMobile(context) ? 100 : 200,
-      height: ResponsiveWidget.isMobile(context) ? 40 : 80,
+      height: ResponsiveWidget.isMobile(context) ? 100 : 200,
       decoration: BoxDecoration(
         color: color,
         border: Border.all(),

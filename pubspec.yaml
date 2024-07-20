@@ -15,8 +15,7 @@ dependencies:
   get_it: ^7.7.0
   haptic_feedback: ^0.5.1+1
 
-  confetti: ^0.7.0
-  dotted_border: ^2.1.0
+  flip_card: ^0.7.0
   json_annotation: ^4.9.0
 
 dev_dependencies:

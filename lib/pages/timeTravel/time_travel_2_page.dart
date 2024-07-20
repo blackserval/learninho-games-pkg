@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_game_module/config/constants.dart';
 import 'package:flutter_game_module/model/assets_model.dart';
-import 'package:flutter_game_module/model/time_travel_model.dart';
+import 'package:flutter_game_module/model/game_model.dart';
 import 'package:flutter_game_module/shared/app_images.dart';
 import 'package:flutter_game_module/shared/widgets/audio_button.dart';
 import 'package:flutter_game_module/shared/widgets/next_button.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../controllers/time_travel_controller.dart';
+import '../../controllers/game_controller.dart';
 import '../../routes/app_pages.dart';
 import '../../shared/custom_snack.dart';
 import '../../shared/widgets/custom_appbar.dart';
 import '../../shared/widgets/draggable_widget.dart';
-import 'widget/target_grid_widget.dart';
+import 'widget/time_travel_target_widget.dart';
 
 class TimeTravel2Page extends StatefulWidget {
-  final TimeTravelModel model;
+  final GameModel model;
 
   const TimeTravel2Page({super.key, required this.model});
 
@@ -24,7 +24,7 @@ class TimeTravel2Page extends StatefulWidget {
 }
 
 class _TimeTravel2PageState extends State<TimeTravel2Page> {
-  final timeTravelController = GetIt.I.get<TimeTravelController>();
+  final controller = GetIt.I.get<GameController>();
   final snack = GetIt.I.get<CustomSnack>();
 
   final ValueNotifier resetNotifier = ValueNotifier(0);
@@ -58,7 +58,7 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
       snack.warning(text: 'Place all cards to continue');
       return;
     }
-    timeTravelController.checkScoreTimeTravel1(
+    controller.checkSocre(
       targets: targets,
       pageFrom: AppPages.timeTravel2,
     );
@@ -94,7 +94,7 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            TargetGridWidget(
+                            TimeTravelTargetWidget(
                               resetNotifier: resetNotifier,
                               onTargetAccept: (target, detail) {
                                 onTargetAccept(target: target, details: detail);

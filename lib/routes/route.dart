@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_game_module/config/constants.dart';
 import 'package:flutter_game_module/model/arguments/congratulation_page_args.dart';
 import 'package:flutter_game_module/pages/congratulation/congratulation_page.dart';
 import 'package:flutter_game_module/pages/magicWord/magic_word_page1.dart';
 import 'package:flutter_game_module/pages/magicWord/magic_word_page2.dart';
+import 'package:flutter_game_module/pages/memory/memory_game_page.dart';
+import 'package:flutter_game_module/pages/numbers/numbers_page.dart';
 import 'package:flutter_game_module/pages/splash/splash_page.dart';
 import 'package:flutter_game_module/routes/app_pages.dart';
 import 'package:flutter_game_module/pages/timeTravel/time_travel_1_page.dart';
 import 'package:flutter_game_module/shared/page/not_found_page.dart';
 
-import '../model/time_travel_model.dart';
+import '../model/game_model.dart';
 import '../pages/timeTravel/time_travel_2_page.dart';
 
 class CustomRouter {
@@ -16,15 +19,25 @@ class CustomRouter {
     return switch (settings.name) {
       AppPages.splash => MaterialPageRoute(builder: (_) => const SplashPage()),
       //
+      // AppPages.memory => MaterialPageRoute(
+      //     builder: (_) => MemoryGamePage(
+      //       model: GameModel(assets: memoryTest),
+      //     ),
+      //   ),
+      //
+      AppPages.numbers => MaterialPageRoute(
+          builder: (_) => const NumbersPage(),
+        ),
+      //
       AppPages.timeTravel1 => MaterialPageRoute(
           builder: (_) => TimeTravel1Page(
-            model: settings.arguments as TimeTravelModel,
+            model: settings.arguments as GameModel,
           ),
         ),
       //
       AppPages.timeTravel2 => MaterialPageRoute(
           builder: (_) => TimeTravel2Page(
-            model: settings.arguments as TimeTravelModel,
+            model: settings.arguments as GameModel,
           ),
         ),
       //

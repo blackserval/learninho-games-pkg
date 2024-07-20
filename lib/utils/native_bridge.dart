@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_game_module/config/constants.dart';
 import 'package:flutter_game_module/controllers/navigation_controller.dart';
-import 'package:flutter_game_module/model/time_travel_model.dart';
+import 'package:flutter_game_module/model/game_model.dart';
 import 'package:flutter_game_module/shared/custom_snack.dart';
 import 'package:get_it/get_it.dart';
 
@@ -43,8 +43,8 @@ class NativeBridge {
 
   //Go to page
   goToPage(MethodCall call) {
-    final jsonRes = json.decode(call.arguments);
-    final game = TimeTravelModel.fromJson(jsonRes);
+    Map<String, dynamic> jsonRes = jsonDecode(call.arguments);
+    final game = GameModel.fromJson(jsonRes);
     if (game.page == null) {
       throw MissingPluginException("Página vazia.");
     }

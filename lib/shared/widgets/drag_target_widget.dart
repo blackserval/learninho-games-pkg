@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_game_module/model/assets_model.dart';
 import 'package:flutter_game_module/shared/widgets/circle_widget.dart';
 import 'package:flutter_game_module/shared/widgets/rectangle_widget.dart';
+import 'package:flutter_game_module/shared/widgets/square_widget.dart';
 
 import '../../config/constants.dart';
 
@@ -58,7 +59,7 @@ class _DragTargetWidgetState extends State<DragTargetWidget> {
               color: widget.backgroundColor,
               image: dataReceived?.url,
             ),
-          WidgetType.square => RectangleWidget(
+          WidgetType.square => SquareWidget(
               color: widget.backgroundColor,
               image: dataReceived?.url,
             ),

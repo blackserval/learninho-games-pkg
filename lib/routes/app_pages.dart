@@ -5,4 +5,6 @@ class AppPages {
   static const String magicWord1 = "/magicWord1";
   static const String magicWord2 = "/magicWord2";
   static const String splash = "/splash";
+  static const String numbers = "/numbers";
+  static const String memory = "/memory";
 }

@@ -22,10 +22,11 @@ class LettersWidget extends StatelessWidget {
       width: size.width * 0.3,
       height: size.height * 0.45,
       child: Wrap(
-        spacing: 16,
-        runSpacing: 16,
+        spacing: 8,
+        runSpacing: 8,
         runAlignment: WrapAlignment.center,
         alignment: WrapAlignment.center,
+        crossAxisAlignment: WrapCrossAlignment.center,
         children: letters
             .map((e) => DraggableWidget(
                   targets: targets,

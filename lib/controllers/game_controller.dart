@@ -5,11 +5,11 @@ import 'package:get_it/get_it.dart';
 import '../model/arguments/congratulation_page_args.dart';
 import '../routes/app_pages.dart';
 
-class TimeTravelController {
+class GameController {
   final audioplayer = AudioPlayer();
   NavigationController get route => GetIt.I.get<NavigationController>();
 
-  void checkScoreTimeTravel1({
+  void checkSocre({
     required Map<String, String?> targets,
     required String pageFrom,
   }) {

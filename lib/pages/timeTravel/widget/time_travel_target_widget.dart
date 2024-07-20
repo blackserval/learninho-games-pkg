@@ -3,13 +3,13 @@ import 'package:flutter_game_module/config/constants.dart';
 import 'package:flutter_game_module/model/assets_model.dart';
 import 'package:flutter_game_module/shared/widgets/drag_target_widget.dart';
 
-class TargetGridWidget extends StatelessWidget {
+class TimeTravelTargetWidget extends StatelessWidget {
   final List<String> images;
   final ValueNotifier resetNotifier;
   final Function(String target, DragTargetDetails<AssetsModel> detail)
       onTargetAccept;
 
-  const TargetGridWidget({
+  const TimeTravelTargetWidget({
     super.key,
     required this.resetNotifier,
     required this.onTargetAccept,

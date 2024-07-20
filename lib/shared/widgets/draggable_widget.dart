@@ -4,6 +4,7 @@ import 'package:flutter_game_module/shared/widgets/circle_widget.dart';
 import 'package:flutter_game_module/shared/widgets/rectangle_widget.dart';
 
 import '../../config/constants.dart';
+import 'square_widget.dart';
 
 class DraggableWidget extends StatelessWidget {
   final Map<String, String?> targets;
@@ -29,24 +30,21 @@ class DraggableWidget extends StatelessWidget {
       data: item,
       feedback: switch (widgetType) {
         WidgetType.circle => CircleWidget(image: item.url, color: color),
-        WidgetType.rectangle =>
-          RectangleWidget(image: item.url, color: color),
-        WidgetType.square => RectangleWidget(image: item.url, color: color),
+        WidgetType.rectangle => RectangleWidget(image: item.url, color: color),
+        WidgetType.square => SquareWidget(image: item.url, color: color),
       },
       childWhenDragging: switch (widgetType) {
         WidgetType.circle => const CircleWidget(color: Colors.grey),
         WidgetType.rectangle => const RectangleWidget(color: Colors.grey),
-        WidgetType.square => const RectangleWidget(color: Colors.grey),
+        WidgetType.square => const SquareWidget(color: Colors.grey),
       },
       child: contain
           ? const SizedBox.shrink()
           : switch (widgetType) {
-              WidgetType.circle =>
-                CircleWidget(image: item.url, color: color),
+              WidgetType.circle => CircleWidget(image: item.url, color: color),
               WidgetType.rectangle =>
                 RectangleWidget(image: item.url, color: color),
-              WidgetType.square =>
-                RectangleWidget(image: item.url, color: color),
+              WidgetType.square => SquareWidget(image: item.url, color: color),
             },
     );
   }
