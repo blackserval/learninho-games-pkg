@@ -1,16 +1,19 @@
-import 'package:json_annotation/json_annotation.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
 
-part 'assets_model.g.dart';
-
-@JsonSerializable()
 class AssetsModel {
   String? url;
-  String? value;
+  int? value;
 
   AssetsModel({this.url, this.value});
 
-  factory AssetsModel.fromJson(Map<String, dynamic> json) =>
-      _$AssetsModelFromJson(json);
+  factory AssetsModel.fromMap(Map<String, dynamic> map) {
+    return AssetsModel(
+      url: map['url'] != null ? map['url'] as String : null,
+      value: map['value'] != null ? map['value'] as int : null,
+    );
+  }
 
-  Map<String, dynamic> toJson() => _$AssetsModelToJson(this);
+  factory AssetsModel.fromJson(String source) =>
+      AssetsModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

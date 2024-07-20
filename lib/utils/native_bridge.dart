@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -43,17 +41,13 @@ class NativeBridge {
 
   //Go to page
   goToPage(MethodCall call) {
-    try {
-      Map<String, dynamic> jsonRes = jsonDecode(call.arguments);
-
-      final game = GameModel.fromJson(jsonRes);
-      if (game.page == null) {
-        throw MissingPluginException("Página vazia.");
-      }
-      route.push(name: game.page!, args: game);
-    } on Exception catch (e) {
-      snack.error(text: "Error parsing json $e");
+    String data = call.arguments.toString().replaceAll("\\", "");
+    final game = GameModel.fromJson(data);
+    if (game.page == null) {
+      snack.error(text: "Página vazia");
+      return;
     }
+    route.push(name: game.page!, args: game);
   }
 
   //Receive data

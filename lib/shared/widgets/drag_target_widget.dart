@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_game_module/model/assets_model.dart';
-import 'package:flutter_game_module/shared/widgets/circle_widget.dart';
-import 'package:flutter_game_module/shared/widgets/rectangle_widget.dart';
-import 'package:flutter_game_module/shared/widgets/square_widget.dart';
+import 'package:flutter_game_module/shared/shape/circle_widget.dart';
+import 'package:flutter_game_module/shared/shape/rectangle_widget.dart';
+import 'package:flutter_game_module/shared/shape/square_widget.dart';
 
 import '../../config/constants.dart';
 

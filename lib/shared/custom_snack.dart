@@ -18,7 +18,7 @@ class CustomSnack {
           Flexible(
             child: Text(
               title,
-              maxLines: 2,
+              maxLines: 10,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(color: Colors.white, fontSize: 16),
             ),
@@ -26,7 +26,7 @@ class CustomSnack {
         ],
       ),
       behavior: SnackBarBehavior.floating,
-      duration: const Duration(seconds: 4),
+      duration: const Duration(seconds: 10),
       backgroundColor: color,
       showCloseIcon: true,
       shape: RoundedRectangleBorder(

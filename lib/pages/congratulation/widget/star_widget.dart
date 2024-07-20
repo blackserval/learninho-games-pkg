@@ -54,7 +54,7 @@ class StarWidget extends StatelessWidget {
   }
 
   String getTitle() {
-    print(model.score);
+
     return switch (model.score) {
       0 => "You're doing well, let's try again?",
       1 || 2 => "Very good, shall we continue training?",

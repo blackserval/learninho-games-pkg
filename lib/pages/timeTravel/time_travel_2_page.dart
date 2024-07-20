@@ -49,7 +49,7 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
     required String target,
     required DragTargetDetails<AssetsModel> details,
   }) {
-    setState(() => targets[target] = details.data.value);
+    setState(() => targets[target] = details.data.value.toString());
   }
 
   void onSubmit() {

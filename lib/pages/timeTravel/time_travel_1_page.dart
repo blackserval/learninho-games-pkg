@@ -32,6 +32,14 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
 
   Map<String, String?> targets = {'0': null, '1': null, '2': null, '3': null};
 
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      snack.success(text: "${widget.model.assets?[0].value} - ${widget.model.assets?[0].url} ");
+    });
+    super.initState();
+  }
+
   void resetGame() {
     // Aqui nao importa o dado, mas sim fazer uma alteração
     //Para os listener receberem
@@ -46,7 +54,7 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
     required DragTargetDetails<AssetsModel> details,
   }) {
     // audio ?
-    setState(() => targets[target] = details.data.value);
+    setState(() => targets[target] = details.data.value.toString());
   }
 
   void onSubmit() {
@@ -64,8 +72,6 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final availableHeight = size.height - kToolbarHeight - 16;
-
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -110,7 +116,6 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
                                     AppImages.retanguloLaranja,
                                   ],
                                 ),
-                            
                                 Flexible(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,

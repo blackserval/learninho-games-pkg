@@ -38,7 +38,7 @@ class _NumbersPageState extends State<NumbersPage> {
     required DragTargetDetails<AssetsModel> details,
   }) {
     // audio ?
-    setState(() => targets[target] = details.data.value);
+    setState(() => targets[target] = details.data.value.toString());
   }
 
   void onSubmit() {
