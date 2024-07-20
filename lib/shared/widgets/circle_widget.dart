@@ -3,21 +3,16 @@ import 'package:flutter/material.dart';
 class CircleWidget extends StatelessWidget {
   final String? image;
   final Color? color;
-  final Size size;
 
-  const CircleWidget({
-    super.key,
-    this.image,
-    this.color = Colors.transparent,
-    this.size = const Size(80, 80),
-  });
+  const CircleWidget({super.key, this.image, this.color = Colors.transparent});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: size.width,
-      height: size.height,
-      padding: EdgeInsets.zero,
+      // width: size.width / 6,
+      // height: size.height / 6,
+      width: 80,
+      height: 80,
       decoration: BoxDecoration(
         color: color,
         shape: BoxShape.circle,

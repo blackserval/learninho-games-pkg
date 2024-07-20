@@ -1,89 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_game_module/config/constants.dart';
+import 'package:flutter_game_module/model/assets_model.dart';
 import 'package:flutter_game_module/shared/widgets/drag_target_widget.dart';
 
 class TargetGridWidget extends StatelessWidget {
+  final List<String> images;
   final ValueNotifier resetNotifier;
-  final Function(String target, DragTargetDetails<Map<String, dynamic>> detail)
+  final Function(String target, DragTargetDetails<AssetsModel> detail)
       onTargetAccept;
 
   const TargetGridWidget({
     super.key,
     required this.resetNotifier,
     required this.onTargetAccept,
+    required this.images,
   });
 
   @override
   Widget build(BuildContext context) {
-    final appBarHeight = AppBar().preferredSize.height;
     final size = MediaQuery.of(context).size;
-    final availableHeight = size.height - appBarHeight - 16;
 
-    return SizedBox(
-      height: availableHeight,
-      width: 300,
-      child: GridView(
-        // physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 0,
-          mainAxisSpacing: 0,
-        ),
-        children: [
+    return Wrap(
+      alignment: WrapAlignment.center,
+      runAlignment: WrapAlignment.center,
+      direction: Axis.horizontal,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      spacing: 8,
+      runSpacing: 8,
+      children: [
+        //o index é o valor que espera do target em String
+        for (int i = 0; i < images.length; i++)
           Stack(
             alignment: Alignment.center,
             children: [
-              Image.network('https://via.placeholder.com/150x150'),
+              SizedBox(
+                width: size.width / 6.5,
+                height: size.height / 3.9,
+                child: Image.asset(
+                  images[i],
+                  fit: BoxFit.contain,
+                ),
+              ),
               DragTargetWidget(
-                targetValue: '0',
-                onAcceptItem: (detail) => onTargetAccept('0', detail),
+                targetValue: i.toString(),
+                onAcceptItem: (detail) => onTargetAccept(
+                  i.toString(),
+                  detail,
+                ),
                 resetNotifier: resetNotifier,
                 widgetType: WidgetType.circle,
-                backgroundColor: Colors.green,
+                // backgroundColor: Colors.green,
               ),
             ],
           ),
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              Image.network('https://via.placeholder.com/150x150'),
-              DragTargetWidget(
-                targetValue: '1',
-                onAcceptItem: (detail) => onTargetAccept('1', detail),
-                resetNotifier: resetNotifier,
-                widgetType: WidgetType.circle,
-                backgroundColor: Colors.black,
-              ),
-            ],
-          ),
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              Image.network('https://via.placeholder.com/150x150'),
-              DragTargetWidget(
-                targetValue: '2',
-                onAcceptItem: (detail) => onTargetAccept('2', detail),
-                resetNotifier: resetNotifier,
-                widgetType: WidgetType.circle,
-                backgroundColor: Colors.pink,
-              ),
-            ],
-          ),
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              Image.network('https://via.placeholder.com/150x150'),
-              DragTargetWidget(
-                targetValue: '3',
-                onAcceptItem: (detail) => onTargetAccept('3', detail),
-                resetNotifier: resetNotifier,
-                widgetType: WidgetType.circle,
-                backgroundColor: Colors.red,
-              ),
-            ],
-          ),
-        ],
-      ),
+      ],
     );
   }
 }

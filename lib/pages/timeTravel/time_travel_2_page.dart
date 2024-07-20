@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_game_module/config/constants.dart';
-import 'package:flutter_game_module/pages/timeTravel/widget/drag_target_positioned_widget.dart';
+import 'package:flutter_game_module/model/assets_model.dart';
+import 'package:flutter_game_module/model/time_travel_model.dart';
 import 'package:flutter_game_module/shared/app_images.dart';
-import 'package:flutter_game_module/shared/theme/app_text.dart';
-import 'package:flutter_game_module/shared/widgets/custom_bottom_bar.dart';
+import 'package:flutter_game_module/shared/widgets/audio_button.dart';
+import 'package:flutter_game_module/shared/widgets/next_button.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../controllers/time_travel_controller.dart';
+import '../../routes/app_pages.dart';
 import '../../shared/custom_snack.dart';
 import '../../shared/widgets/custom_appbar.dart';
 import '../../shared/widgets/draggable_widget.dart';
+import 'widget/target_grid_widget.dart';
 
 class TimeTravel2Page extends StatefulWidget {
-  const TimeTravel2Page({super.key});
+  final TimeTravelModel model;
+
+  const TimeTravel2Page({super.key, required this.model});
 
   @override
   State<TimeTravel2Page> createState() => _TimeTravel2PageState();
@@ -42,9 +47,9 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
 
   void onTargetAccept({
     required String target,
-    required DragTargetDetails<Map<String, dynamic>> details,
+    required DragTargetDetails<AssetsModel> details,
   }) {
-    setState(() => targets[target] = details.data['value']);
+    setState(() => targets[target] = details.data.value);
   }
 
   void onSubmit() {
@@ -53,7 +58,10 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
       snack.warning(text: 'Place all cards to continue');
       return;
     }
-    // timeTravelController.checkGameScore(targets);
+    timeTravelController.checkScoreTimeTravel1(
+      targets: targets,
+      pageFrom: AppPages.timeTravel2,
+    );
   }
 
   @override
@@ -61,123 +69,93 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: CustomAppbar(refreh: resetGame),
-      bottomNavigationBar: const CustomBottomBar(),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          //Image
-          Stack(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(AppImages.timeTravel1Background),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SafeArea(
+          child: Stack(
             children: [
-              // Image
-              SizedBox(
-                height: 350,
-                width: 350,
-                child: Image.asset(
-                  AppImages.timeTravel2,
-                  fit: BoxFit.fitHeight,
+              Container(
+                padding: const EdgeInsets.all(22),
+                width: size.width,
+                height: size.height,
+                child: LayoutBuilder(
+                  builder: (context, constrains) {
+                    return SingleChildScrollView(
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          minHeight: constrains.maxHeight,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TargetGridWidget(
+                              resetNotifier: resetNotifier,
+                              onTargetAccept: (target, detail) {
+                                onTargetAccept(target: target, details: detail);
+                              },
+                              images: const [
+                                AppImages.retanguloAzul,
+                                AppImages.retanguloRoxo,
+                                AppImages.retanguloVerde,
+                                AppImages.retanguloLaranja,
+                                AppImages.retanguloVermelho,
+                              ],
+                            ),
+                            const SizedBox(height: 30),
+                            // Widgets Draggable
+                            SafeArea(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const SizedBox.shrink(),
+                                  Flexible(
+                                    child: Wrap(
+                                      spacing: 8,
+                                      runSpacing: 8,
+                                      runAlignment: WrapAlignment.center,
+                                      alignment: WrapAlignment.center,
+                                      children: widget.model.assets!
+                                          .map((e) => DraggableWidget(
+                                                targets: targets,
+                                                item: e,
+                                                widgetType: WidgetType.circle,
+                                              ))
+                                          .toList(),
+                                    ),
+                                  ),
+                                  NextButton(onTap: onSubmit),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
-              // Widgets DragTarget
-              DragTargetPositionedWidget(
-                top: 12,
-                left: 140,
-                targetValue: '0',
-                resetNotifier: resetNotifier,
-                backgroundColor: Colors.green,
-                onAcceptItem: (value) => onTargetAccept(
-                  target: '0',
-                  details: value,
+              Align(
+                alignment: Alignment.topLeft,
+                child: SafeArea(
+                  child: CustomAppbar(refreh: resetGame),
                 ),
               ),
-              DragTargetPositionedWidget(
-                top: 92,
-                right: 30,
-                targetValue: '1',
-                resetNotifier: resetNotifier,
-                backgroundColor: Colors.red,
-                onAcceptItem: (value) => onTargetAccept(
-                  target: '1',
-                  details: value,
-                ),
-              ),
-              DragTargetPositionedWidget(
-                bottom: 15,
-                right: 75,
-                targetValue: '2',
-                resetNotifier: resetNotifier,
-                backgroundColor: Colors.blue,
-                onAcceptItem: (value) => onTargetAccept(
-                  target: '2',
-                  details: value,
-                ),
-              ),
-              DragTargetPositionedWidget(
-                bottom: 15,
-                left: 75,
-                targetValue: '3',
-                resetNotifier: resetNotifier,
-                backgroundColor: Colors.black,
-                onAcceptItem: (value) => onTargetAccept(
-                  target: '3',
-                  details: value,
-                ),
-              ),
-              DragTargetPositionedWidget(
-                top: 92,
-                left: 30,
-                targetValue: '4',
-                resetNotifier: resetNotifier,
-                backgroundColor: Colors.pink,
-                onAcceptItem: (value) => onTargetAccept(
-                  target: '4',
-                  details: value,
+              const Align(
+                alignment: Alignment.bottomLeft,
+                child: SafeArea(
+                  child: AudioButton(),
                 ),
               ),
             ],
           ),
-          // Widgets Draggable
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: size.width * 0.3,
-                height: size.height * 0.45,
-                child: Wrap(
-                  spacing: 16,
-                  runSpacing: 16,
-                  runAlignment: WrapAlignment.center,
-                  alignment: WrapAlignment.center,
-                  children: timeTravel2Test
-                      .map((e) => DraggableWidget(
-                            targets: targets,
-                            item: e,
-                            widgetType: WidgetType.circle,
-                          ))
-                      .toList(),
-                ),
-              ),
-              const SizedBox(height: 22),
-              SizedBox(
-                width: 200,
-                height: 50,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                    elevation: 4,
-                  ),
-                  onPressed: onSubmit,
-                  child: Text(
-                    "Next",
-                    style: AppText.buttonText.copyWith(
-                      letterSpacing: 2,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }

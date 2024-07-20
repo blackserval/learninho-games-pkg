@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_game_module/config/constants.dart';
+import 'package:flutter_game_module/model/assets_model.dart';
 import 'package:flutter_game_module/shared/widgets/custom_appbar.dart';
 import 'package:flutter_game_module/shared/widgets/drag_target_widget.dart';
 import 'package:flutter_game_module/pages/magicWord/widgets/letters_widget.dart';
@@ -27,10 +28,10 @@ class _MagicWordPage2State extends State<MagicWordPage2> {
 
   void onTargetAccept({
     required String target,
-    required DragTargetDetails<Map<String, dynamic>> details,
+    required DragTargetDetails<AssetsModel> details,
   }) {
     // audio ?
-    setState(() => targets[target] = details.data['value']);
+    setState(() => targets[target] = details.data.value);
   }
 
   @override

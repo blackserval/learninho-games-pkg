@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_game_module/model/assets_model.dart';
 import 'package:flutter_game_module/shared/widgets/circle_widget.dart';
 import 'package:flutter_game_module/shared/widgets/rectangle_widget.dart';
 
@@ -6,7 +7,7 @@ import '../../config/constants.dart';
 
 class DragTargetWidget extends StatefulWidget {
   final String targetValue;
-  final Function(DragTargetDetails<Map<String, dynamic>>) onAcceptItem;
+  final Function(DragTargetDetails<AssetsModel>) onAcceptItem;
   final Color backgroundColor;
   final WidgetType widgetType;
   //Usado para o widget pai resetar os filhos
@@ -26,7 +27,7 @@ class DragTargetWidget extends StatefulWidget {
 }
 
 class _DragTargetWidgetState extends State<DragTargetWidget> {
-  Map<String, String>? dataReceived;
+  AssetsModel? dataReceived;
 
   @override
   void initState() {
@@ -46,20 +47,20 @@ class _DragTargetWidgetState extends State<DragTargetWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return DragTarget<Map<String, String>>(
+    return DragTarget<AssetsModel>(
       builder: (context, candidateData, rejectedData) {
         return switch (widget.widgetType) {
           WidgetType.circle => CircleWidget(
               color: widget.backgroundColor,
-              image: dataReceived?['url'],
+              image: dataReceived?.url,
             ),
           WidgetType.rectangle => RectangleWidget(
               color: widget.backgroundColor,
-              image: dataReceived?['url'],
+              image: dataReceived?.url,
             ),
           WidgetType.square => RectangleWidget(
               color: widget.backgroundColor,
-              image: dataReceived?['url'],
+              image: dataReceived?.url,
             ),
         };
       },

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_game_module/model/assets_model.dart';
 
 import '../../../config/constants.dart';
 import '../../../shared/widgets/draggable_widget.dart';
 
 class LettersWidget extends StatelessWidget {
-  final List<Map<String, String>> letters;
+  final List<AssetsModel> letters;
   final Map<String, String?> targets;
 
   const LettersWidget({

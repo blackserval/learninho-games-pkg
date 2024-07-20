@@ -13,5 +13,3 @@ Nos arguments passe o nome da tela dessa forma:
 /timeTravel2
 /magicWord1
 /magicWord2
-
-
