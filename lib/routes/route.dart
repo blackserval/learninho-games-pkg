@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_game_module/config/constants.dart';
 import 'package:flutter_game_module/model/arguments/congratulation_page_args.dart';
 import 'package:flutter_game_module/pages/congratulation/congratulation_page.dart';
 import 'package:flutter_game_module/pages/magicWord/magic_word_page1.dart';

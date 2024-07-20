@@ -12,20 +12,36 @@ class ResponsiveWidget extends StatelessWidget {
     required this.web,
   });
 
-  static const int mobileBreakpointWidth = 600;
-  static const int tabletBreakpointWidth = 1200;
+  // Largura máxima para mobile em modo retrato
+  static const int mobilePortraitBreakpointWidth = 600;
+  // Largura mínima para mobile em modo paisagem
+  static const int mobileLandscapeBreakpointWidth = 950;
+  // Largura mínima para tablet em modo retrato
+  static const int tabletPortraitBreakpointWidth = 900;
+  // Largura mínima para tablet em modo paisagem
+  static const int tabletLandscapeBreakpointWidth = 1200;
 
   static bool isMobile(BuildContext context) {
-    return MediaQuery.of(context).size.width < mobileBreakpointWidth;
+    final orientation = MediaQuery.of(context).orientation;
+    if (orientation == Orientation.portrait) {
+      return MediaQuery.of(context).size.width <= mobilePortraitBreakpointWidth;
+    } else {
+      return MediaQuery.of(context).size.width <=
+          mobileLandscapeBreakpointWidth;
+    }
   }
 
   static bool isTablet(BuildContext context) {
-    return MediaQuery.of(context).size.width >= mobileBreakpointWidth &&
-        MediaQuery.of(context).size.width < tabletBreakpointWidth;
-  }
-
-  static bool isWeb(BuildContext context) {
-    return MediaQuery.of(context).size.width >= tabletBreakpointWidth;
+    final orientation = MediaQuery.of(context).orientation;
+    if (orientation == Orientation.portrait) {
+      return MediaQuery.of(context).size.width >
+              mobilePortraitBreakpointWidth &&
+          MediaQuery.of(context).size.width <= tabletPortraitBreakpointWidth;
+    } else {
+      return MediaQuery.of(context).size.width >
+              mobileLandscapeBreakpointWidth &&
+          MediaQuery.of(context).size.width <= tabletLandscapeBreakpointWidth;
+    }
   }
 
   @override

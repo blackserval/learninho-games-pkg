@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_game_module/utils/responsive_widget.dart';
 
 import '../theme/app_text.dart';
 
@@ -10,8 +11,8 @@ class NextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 200,
-      height: 50,
+      width: ResponsiveWidget.isMobile(context) ? 200 : 250,
+      height: ResponsiveWidget.isMobile(context) ? 50 : 80,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.green,
@@ -23,7 +24,7 @@ class NextButton extends StatelessWidget {
             "Next",
             style: AppText.buttonText.copyWith(
               letterSpacing: 2,
-              fontSize: 22,
+              fontSize: ResponsiveWidget.isMobile(context) ? 22 : 32,
             ),
           ),
         ),

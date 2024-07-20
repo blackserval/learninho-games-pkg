@@ -9,6 +9,7 @@ import 'package:flutter_game_module/shared/app_images.dart';
 import 'package:flutter_game_module/shared/custom_snack.dart';
 import 'package:flutter_game_module/shared/widgets/audio_button.dart';
 import 'package:flutter_game_module/shared/widgets/next_button.dart';
+import 'package:flutter_game_module/utils/responsive_widget.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../shared/widgets/custom_appbar.dart';
@@ -96,7 +97,7 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
                               children: [
                                 SizedBox(
                                   height: availableHeight,
-                                  width: 350,
+                                  width: size.width / 2,
                                   child: TargetGridWidget(
                                     resetNotifier: resetNotifier,
                                     onTargetAccept: (target, detail) {
@@ -131,7 +132,9 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
                                                 ))
                                             .toList(),
                                       ),
-                                      const SizedBox(height: 22),
+                                      ResponsiveWidget.isMobile(context)
+                                          ? const SizedBox(height: 22)
+                                          : const SizedBox(height: 100),
                                       //Button
                                       NextButton(onTap: onSubmit),
                                     ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_game_module/utils/responsive_widget.dart';
 
 class CircleWidget extends StatelessWidget {
   final String? image;
@@ -9,10 +10,8 @@ class CircleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // width: size.width / 6,
-      // height: size.height / 6,
-      width: 80,
-      height: 80,
+      width: ResponsiveWidget.isMobile(context) ? 80 : 100,
+      height: ResponsiveWidget.isMobile(context) ? 80 : 100,
       decoration: BoxDecoration(
         color: color,
         shape: BoxShape.circle,
