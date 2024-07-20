@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +8,8 @@ import 'package:flutter_game_module/controllers/navigation_controller.dart';
 import 'package:flutter_game_module/model/game_model.dart';
 import 'package:flutter_game_module/shared/custom_snack.dart';
 import 'package:get_it/get_it.dart';
+
+import '../model/assets_model.dart';
 
 class NativeBridge {
   NativeBridge._();
@@ -42,12 +46,19 @@ class NativeBridge {
   //Go to page
   goToPage(MethodCall call) {
     String data = call.arguments.toString().replaceAll("\\", "");
-    final game = GameModel.fromJson(data);
-    if (game.page == null) {
-      snack.error(text: "Página vazia");
-      return;
-    }
-    route.push(name: game.page!, args: game);
+    Map<String, dynamic> jsonMap = json.decode(data);
+
+    final model = GameModel(
+      page: jsonMap['page'],
+      assets: (jsonMap['assets'] as List<dynamic>?)
+          ?.map((e) => AssetsModel(
+                url: e['url'] as String?,
+                value: e['value'] as String?,
+              ))
+          .toList(),
+    );
+
+    route.push(name: model.page!, args: model);
   }
 
   //Receive data
