@@ -10,21 +10,23 @@ class CustomErrorPage {
           title: const Text('Erro'),
         ),
         body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.error_outline_outlined,
-                color: Colors.red,
-                size: 100,
-              ),
-              Text(
-                kDebugMode
-                    ? error.exception.toString()
-                    : 'Oops... ocorreu um erro inesperado, entre em contato se precisar de ajuda\n${error.exception.toString()}',
-                textAlign: TextAlign.center,
-              ),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.error_outline_outlined,
+                  color: Colors.red,
+                  size: 70,
+                ),
+                Text(
+                  kDebugMode
+                      ? error.exceptionAsString()
+                      : 'Oops... ocorreu um erro inesperado, entre em contato se precisar de ajuda\n${error.exception.toString()}',
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -64,8 +64,7 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final appBarHeight = AppBar().preferredSize.height;
-    final availableHeight = size.height - appBarHeight - 16;
+    final availableHeight = size.height - kToolbarHeight - 16;
 
     return Scaffold(
       body: Container(
@@ -91,27 +90,27 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                SizedBox(
-                                  height: availableHeight,
-                                  width: size.width / 2,
-                                  child: TimeTravelTargetWidget(
-                                    resetNotifier: resetNotifier,
-                                    onTargetAccept: (target, detail) {
-                                      onTargetAccept(
-                                          target: target, details: detail);
-                                    },
-                                    images: const [
-                                      AppImages.retanguloAzul,
-                                      AppImages.retanguloRoxo,
-                                      AppImages.retanguloVerde,
-                                      AppImages.retanguloLaranja,
-                                    ],
-                                  ),
+                                TimeTravelTargetWidget(
+                                  resetNotifier: resetNotifier,
+                                  onTargetAccept: (target, detail) {
+                                    onTargetAccept(
+                                      target: target,
+                                      details: detail,
+                                    );
+                                  },
+                                  images: const [
+                                    AppImages.retanguloAzul,
+                                    AppImages.retanguloRoxo,
+                                    AppImages.retanguloVerde,
+                                    AppImages.retanguloLaranja,
+                                  ],
                                 ),
+                            
                                 Flexible(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -122,7 +121,6 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
                                         runSpacing: 8,
                                         runAlignment: WrapAlignment.center,
                                         alignment: WrapAlignment.center,
-                                        direction: Axis.horizontal,
                                         children: widget.model.assets!
                                             .map((e) => DraggableWidget(
                                                   targets: targets,

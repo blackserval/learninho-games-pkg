@@ -12,6 +12,7 @@ import '../../routes/app_pages.dart';
 import '../../shared/custom_snack.dart';
 import '../../shared/widgets/custom_appbar.dart';
 import '../../shared/widgets/draggable_widget.dart';
+import '../../utils/responsive_widget.dart';
 import 'widget/time_travel_target_widget.dart';
 
 class TimeTravel2Page extends StatefulWidget {
@@ -26,7 +27,6 @@ class TimeTravel2Page extends StatefulWidget {
 class _TimeTravel2PageState extends State<TimeTravel2Page> {
   final controller = GetIt.I.get<GameController>();
   final snack = GetIt.I.get<CustomSnack>();
-
   final ValueNotifier resetNotifier = ValueNotifier(0);
   Map<String, String?> targets = {
     "0": null,
@@ -80,9 +80,9 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
           child: Stack(
             children: [
               Container(
-                padding: const EdgeInsets.all(22),
                 width: size.width,
                 height: size.height,
+                padding: const EdgeInsets.all(22),
                 child: LayoutBuilder(
                   builder: (context, constrains) {
                     return SingleChildScrollView(
@@ -130,6 +130,9 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
                                           .toList(),
                                     ),
                                   ),
+                                  ResponsiveWidget.isMobile(context)
+                                      ? const SizedBox(height: 22)
+                                      : const SizedBox(height: 100),
                                   NextButton(onTap: onSubmit),
                                 ],
                               ),
