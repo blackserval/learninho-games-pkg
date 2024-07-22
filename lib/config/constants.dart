@@ -8,6 +8,7 @@ class AppConstants {
       "com.example.flutter_game_module.host/nativeCommunication";
 
   static const String dataFromNative = "dataFromNative";
+  static const String gameResult = "game_result";
   static const String goToPage = "goToPage";
 }
 

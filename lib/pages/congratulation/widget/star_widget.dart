@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_game_module/controllers/game_controller.dart';
 import 'package:flutter_game_module/shared/theme/app_text.dart';
 import 'package:get_it/get_it.dart';
 
@@ -14,6 +15,8 @@ class StarWidget extends StatelessWidget {
 
   Widget _button() {
     final route = GetIt.I.get<NavigationController>();
+    final gameController = GetIt.I.get<GameController>();
+
     if (model.tryAgain) {
       return ElevatedButton(
         onPressed: () {
@@ -36,6 +39,7 @@ class StarWidget extends StatelessWidget {
 
     return ElevatedButton(
       onPressed: () {
+        gameController.sendGameResult(value: model.score!);
         SystemNavigator.pop();
       },
       child: Padding(
@@ -54,7 +58,6 @@ class StarWidget extends StatelessWidget {
   }
 
   String getTitle() {
-
     return switch (model.score) {
       0 => "You're doing well, let's try again?",
       1 || 2 => "Very good, shall we continue training?",

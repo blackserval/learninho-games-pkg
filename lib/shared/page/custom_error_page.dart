@@ -22,7 +22,7 @@ class CustomErrorPage {
                 Text(
                   kDebugMode
                       ? error.exceptionAsString()
-                      : 'Oops... ocorreu um erro inesperado, entre em contato se precisar de ajuda\n${error.exception.toString()}',
+                      : 'Oops... ocorreu um erro inesperado, entre em contato se precisar de ajuda',
                   textAlign: TextAlign.center,
                 ),
               ],

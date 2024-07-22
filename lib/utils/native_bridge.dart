@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_game_module/config/constants.dart';
 import 'package:flutter_game_module/controllers/navigation_controller.dart';
@@ -33,9 +32,6 @@ class NativeBridge {
           case AppConstants.goToPage:
             goToPage(call);
             break;
-          case AppConstants.dataFromNative:
-            receiveDataFromNative(call.arguments);
-            break;
           default:
             throw MissingPluginException();
         }
@@ -61,18 +57,8 @@ class NativeBridge {
     route.push(name: model.page!, args: model);
   }
 
-  //Receive data
-  receiveDataFromNative(dynamic data) async {
-    debugPrint("Dados vindo do Swift $data");
+  //Send game Result
+  Future<void> sendGameResult({required int value}) async {
+    await _channel.invokeMethod(AppConstants.gameResult, value);
   }
-
-  //Send data
-  //
-  // static Future<void> sendDataToNative(String data) async {
-  //   try {
-  //     await _channel.invokeMethod(AppConstants.methodSendDataToNative, data);
-  //   } catch (e) {
-  //     debugPrint('Erro ao enviar dados para o Swift: $e');
-  //   }
-  // }
 }

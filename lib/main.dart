@@ -11,7 +11,7 @@ void main() async {
   //Configure controller`s
   setupLocators();
 
-  //Configure method channel for communications
+  //Configure method channel for native communications
   NativeBridge.instance.setupMethodChannel();
 
   //Lock screen to landscape
