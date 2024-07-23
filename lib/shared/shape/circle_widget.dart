@@ -12,19 +12,24 @@ class CircleWidget extends StatelessWidget {
     return Container(
       width: ResponsiveWidget.isMobile(context) ? 80 : 100,
       height: ResponsiveWidget.isMobile(context) ? 80 : 100,
-      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      decoration: BoxDecoration(
+        color: color,
+        shape: BoxShape.circle,
+      ),
       child: image == null
           ? null
-          : Image.network(
-              image!,
-              fit: BoxFit.cover,
-              errorBuilder: (context, exception, stackTrace) {
-                return Icon(
-                  Icons.error,
-                  color: Colors.grey,
-                  size: ResponsiveWidget.isMobile(context) ? 70 : 100,
-                );
-              },
+          : ClipOval(
+              child: Image.network(
+                image!,
+                fit: BoxFit.cover,
+                errorBuilder: (context, exception, stackTrace) {
+                  return Icon(
+                    Icons.error,
+                    color: Colors.grey,
+                    size: ResponsiveWidget.isMobile(context) ? 70 : 100,
+                  );
+                },
+              ),
             ),
     );
     // return Container(
