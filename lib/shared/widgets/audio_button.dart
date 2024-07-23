@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_game_module/utils/native_bridge.dart';
 
 class AudioButton extends StatefulWidget {
   const AudioButton({super.key});
@@ -8,7 +9,13 @@ class AudioButton extends StatefulWidget {
 }
 
 class _AudioButtonState extends State<AudioButton> {
+  final nativeBridge = NativeBridge.instance;
   bool soundOn = false;
+
+  onTap() {
+    setState(() => soundOn = !soundOn);
+    nativeBridge.sendAudioSettings(value: soundOn);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +25,7 @@ class _AudioButtonState extends State<AudioButton> {
         backgroundColor: Colors.grey[300],
         radius: 20,
         child: IconButton(
-          onPressed: () {
-            setState(() => soundOn = !soundOn);
-          },
+          onPressed: onTap,
           icon: soundOn
               ? const Icon(Icons.volume_up_rounded)
               : const Icon(Icons.volume_off_rounded),

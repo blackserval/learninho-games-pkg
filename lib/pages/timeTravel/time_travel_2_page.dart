@@ -7,8 +7,10 @@ import 'package:flutter_game_module/shared/widgets/audio_button.dart';
 import 'package:flutter_game_module/shared/widgets/next_button.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../controllers/audio_controller.dart';
 import '../../controllers/game_controller.dart';
 import '../../routes/app_pages.dart';
+import '../../shared/app_sounds.dart';
 import '../../shared/custom_snack.dart';
 import '../../shared/widgets/custom_appbar.dart';
 import '../../shared/widgets/draggable_widget.dart';
@@ -27,6 +29,7 @@ class TimeTravel2Page extends StatefulWidget {
 class _TimeTravel2PageState extends State<TimeTravel2Page> {
   final controller = GetIt.I.get<GameController>();
   final snack = GetIt.I.get<CustomSnack>();
+  final audio = GetIt.I.get<AudioController>();
   final ValueNotifier resetNotifier = ValueNotifier(0);
   Map<String, String?> targets = {
     "0": null,
@@ -35,6 +38,12 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
     "3": null,
     '4': null,
   };
+
+  @override
+  void initState() {
+    audio.playSound(song: AppSounds.timeTravel);
+    super.initState();
+  }
 
   void resetGame() {
     // Aqui nao importa o dado, mas sim fazer uma alteração

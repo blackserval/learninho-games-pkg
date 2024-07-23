@@ -116,8 +116,12 @@ class _NumbersPageState extends State<NumbersPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        leftWidget(),
-        rightWidget(),
+        Flexible(
+          child: leftWidget(),
+        ),
+        Flexible(
+          child: rightWidget(),
+        ),
       ],
     );
   }
@@ -125,55 +129,42 @@ class _NumbersPageState extends State<NumbersPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(AppImages.timeTravel1Background),
-            fit: BoxFit.cover,
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(AppImages.timeTravel1Background),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: SafeArea(
-          child: Stack(
-            children: [
-              //Body
-              Container(
-                width: size.width,
-                height: size.height,
-                padding: const EdgeInsets.all(22),
-                child: LayoutBuilder(
-                  builder: (context, constrains) {
-                    return SingleChildScrollView(
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          minHeight: constrains.maxHeight,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            _body(),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+          child: SafeArea(
+            child: Stack(
+              children: [
+                //Body
+                Container(
+                  width: size.width,
+                  height: size.height,
+                  padding: const EdgeInsets.all(22),
+                  child: _body(),
                 ),
-              ),
-              //Appbar
-              Align(
-                alignment: Alignment.topLeft,
-                child: SafeArea(
-                  child: CustomAppbar(refreh: resetGame),
+                //Appbar
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: SafeArea(
+                    child: CustomAppbar(refreh: resetGame),
+                  ),
                 ),
-              ),
-              //Sound button
-              const Align(
-                alignment: Alignment.bottomLeft,
-                child: SafeArea(
-                  child: AudioButton(),
+                //Sound button
+                const Align(
+                  alignment: Alignment.bottomLeft,
+                  child: SafeArea(
+                    child: AudioButton(),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

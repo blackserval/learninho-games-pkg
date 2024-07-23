@@ -9,7 +9,8 @@ class AppConstants {
 
   static const String dataFromNative = "dataFromNative";
   static const String gameResult = "game_result";
-  static const String goToPage = "goToPage";
+  static const String goToPageMethod = "goToPage";
+  static const String settingsMethod = "settings";
 }
 
 GameModel timeTravelModel1 = GameModel(
