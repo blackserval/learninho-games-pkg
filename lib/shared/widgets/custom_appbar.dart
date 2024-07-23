@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_game_module/controllers/audio_controller.dart';
+import 'package:get_it/get_it.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback refreh;
@@ -11,6 +13,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final audioController = GetIt.I.get<AudioController>();
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Row(
@@ -23,6 +26,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
               icon: const Icon(Icons.close),
               color: Colors.grey[800],
               onPressed: () {
+                audioController.stopSound();
                 SystemNavigator.pop(animated: true);
               },
             ),

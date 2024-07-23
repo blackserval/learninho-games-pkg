@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_game_module/repository/preferences/audio_preferences.dart';
+import 'package:flutter_game_module/shared/custom_snack.dart';
 import 'package:flutter_game_module/utils/native_bridge.dart';
+import 'package:get_it/get_it.dart';
 
 class AudioButton extends StatefulWidget {
   const AudioButton({super.key});
@@ -10,8 +12,9 @@ class AudioButton extends StatefulWidget {
 }
 
 class _AudioButtonState extends State<AudioButton> {
+  final snack = GetIt.I.get<CustomSnack>();
   final nativeBridge = NativeBridge.instance;
-  bool soundOn = true;
+  bool soundOn = false;
 
   @override
   void initState() {

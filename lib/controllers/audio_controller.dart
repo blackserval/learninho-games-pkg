@@ -5,6 +5,8 @@ import 'package:flutter_game_module/repository/preferences/audio_preferences.dar
 class AudioController {
   final audioPlayer = AudioPlayer();
 
+  Future<void> stopSound() async => await audioPlayer.stop();
+
   Future<void> playSound({required String song}) async {
     if (await _canPlaySound()) {
       debugPrint("--PlaySound--");
@@ -14,6 +16,6 @@ class AudioController {
 
   Future<bool> _canPlaySound() async {
     debugPrint("--CanPlaySound--");
-    return await AudioPreferences.getAudio() ?? false;
+    return await AudioPreferences.getAudio();
   }
 }

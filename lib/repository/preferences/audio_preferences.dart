@@ -14,7 +14,6 @@ class AudioPreferences {
 
   static Future<void> setMusic({required bool value}) async {
     final shared = await SharedPreferences.getInstance();
-
     shared.setBool(musicKey, value);
   }
 
