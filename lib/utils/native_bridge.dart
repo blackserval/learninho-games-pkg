@@ -69,14 +69,15 @@ class NativeBridge {
   Future<void> sendAudioSettings({required bool value}) async {
     await _channel.invokeMethod(
       AppConstants.settingsMethod,
-      {"music_enable": value, "audio_enable": value},
+      {"music_enabled": value, "audio_enabled": value},
     );
   }
 
   Future<void> receiveAudioSettings(MethodCall call) async {
     String data = call.arguments.toString().replaceAll("\\", "");
     Map<String, dynamic> jsonMap = json.decode(data);
-    AudioPreferences.setAudio(value: jsonMap['audio_enable']);
-    AudioPreferences.setMusic(value: jsonMap['music_enable']);
+
+    AudioPreferences.setAudio(value: jsonMap['audio_enabled']);
+    AudioPreferences.setMusic(value: jsonMap['music_enabled']);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_game_module/repository/preferences/audio_preferences.dart';
 import 'package:flutter_game_module/utils/native_bridge.dart';
 
 class AudioButton extends StatefulWidget {
@@ -10,7 +11,20 @@ class AudioButton extends StatefulWidget {
 
 class _AudioButtonState extends State<AudioButton> {
   final nativeBridge = NativeBridge.instance;
-  bool soundOn = false;
+  bool soundOn = true;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      loadAudioData();
+    });
+    super.initState();
+  }
+
+  loadAudioData() async {
+    soundOn = await AudioPreferences.getAudio();
+    setState(() {});
+  }
 
   onTap() {
     setState(() => soundOn = !soundOn);

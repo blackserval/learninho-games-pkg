@@ -1,8 +1,8 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AudioPreferences {
-  static String musicKey = "music_enable";
-  static String audioKey = "audio_enable";
+  static String musicKey = "music_enabled";
+  static String audioKey = "audio_enabled";
 
   //Set
   //
@@ -20,8 +20,8 @@ class AudioPreferences {
 
   //Get
   //
-  static Future<bool?> getAudio() async {
+  static Future<bool> getAudio() async {
     final shared = await SharedPreferences.getInstance();
-    return shared.getBool(audioKey);
+    return shared.getBool(audioKey) ?? false;
   }
 }
