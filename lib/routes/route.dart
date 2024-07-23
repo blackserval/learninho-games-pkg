@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_game_module/config/constants.dart';
 import 'package:flutter_game_module/model/arguments/congratulation_page_args.dart';
 import 'package:flutter_game_module/pages/congratulation/congratulation_page.dart';
 import 'package:flutter_game_module/pages/magicWord/magic_word_page1.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_game_module/pages/timeTravel/time_travel_1_page.dart';
 import 'package:flutter_game_module/shared/page/not_found_page.dart';
 
 import '../model/game_model.dart';
+import '../pages/memory/memory_game_page.dart';
 import '../pages/timeTravel/time_travel_2_page.dart';
 
 class CustomRouter {
@@ -17,11 +19,9 @@ class CustomRouter {
     return switch (settings.name) {
       AppPages.splash => MaterialPageRoute(builder: (_) => const SplashPage()),
       //
-      // AppPages.memory => MaterialPageRoute(
-      //     builder: (_) => MemoryGamePage(
-      //       model: GameModel(assets: memoryTest),
-      //     ),
-      //   ),
+      AppPages.memory => MaterialPageRoute(
+          builder: (_) => const MemoryGamePage(),
+        ),
       //
       AppPages.numbers => MaterialPageRoute(
           builder: (_) => const NumbersPage(),

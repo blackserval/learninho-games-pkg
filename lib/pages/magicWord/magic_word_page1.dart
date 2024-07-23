@@ -61,148 +61,136 @@ class _MagicWordPage1State extends State<MagicWordPage1> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(AppImages.timeTravel1Background),
-            fit: BoxFit.cover,
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(AppImages.timeTravel1Background),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: SafeArea(
-          child: Stack(
-            children: [
-              //Body
-              Container(
-                width: size.width,
-                height: size.height,
-                padding: const EdgeInsets.all(22),
-                child: LayoutBuilder(builder: (context, constraints) {
-                  return SingleChildScrollView(
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minHeight: constraints.maxHeight,
-                      ),
-                      //Scroll
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+          child: SafeArea(
+            child: Stack(
+              children: [
+                //Body
+                Container(
+                  width: size.width,
+                  height: size.height,
+                  padding: const EdgeInsets.all(22),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Flexible(
-                                flex: 1,
-                                child: LettersWidget(
-                                  letters: magicWordTest1.sublist(0, 4),
-                                  targets: targets,
+                          Flexible(
+                            flex: 1,
+                            child: LettersWidget(
+                              letters: magicWordTest1.sublist(0, 4),
+                              targets: targets,
+                            ),
+                          ),
+                          Flexible(
+                            flex: 2,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const ImageWidget(
+                                  image:
+                                      "https://www.creativefabrica.com/wp-content/uploads/2023/09/05/Nature-wallpaper-Graphics-78543985-1.jpg",
                                 ),
-                              ),
-                              Flexible(
-                                flex: 2,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                const SizedBox(height: 16),
+                                Text(
+                                  "Flutter",
+                                  style: AppText.title.copyWith(
+                                    fontSize: ResponsiveWidget.isMobile(context)
+                                        ? 22
+                                        : 32,
+                                  ),
+                                ),
+                                const SizedBox(height: 16),
+                                //Targets
+                                Wrap(
+                                  spacing: 8,
+                                  runSpacing: 8,
+                                  runAlignment: WrapAlignment.center,
+                                  alignment: WrapAlignment.center,
                                   children: [
-                                    const ImageWidget(
-                                      image:
-                                          "https://www.creativefabrica.com/wp-content/uploads/2023/09/05/Nature-wallpaper-Graphics-78543985-1.jpg",
-                                    ),
-                                    const SizedBox(height: 16),
-                                    Text(
-                                      "Flutter",
-                                      style: AppText.title.copyWith(
-                                        fontSize:
-                                            ResponsiveWidget.isMobile(context)
-                                                ? 22
-                                                : 32,
+                                    DragTargetWidget(
+                                      widgetType: WidgetType.rectangle,
+                                      targetValue: '0',
+                                      resetNotifier: resetNotifier,
+                                      onAcceptItem: (value) => onTargetAccept(
+                                        target: '0',
+                                        details: value,
                                       ),
                                     ),
-                                    const SizedBox(height: 16),
-                                    //Targets
-                                    Wrap(
-                                      spacing: 8,
-                                      runSpacing: 8,
-                                      runAlignment: WrapAlignment.center,
-                                      alignment: WrapAlignment.center,
-                                      children: [
-                                        DragTargetWidget(
-                                          widgetType: WidgetType.rectangle,
-                                          targetValue: '0',
-                                          resetNotifier: resetNotifier,
-                                          onAcceptItem: (value) =>
-                                              onTargetAccept(
-                                            target: '0',
-                                            details: value,
-                                          ),
-                                        ),
-                                        DragTargetWidget(
-                                          targetValue: '1',
-                                          widgetType: WidgetType.rectangle,
-                                          resetNotifier: resetNotifier,
-                                          onAcceptItem: (value) =>
-                                              onTargetAccept(
-                                            target: '1',
-                                            details: value,
-                                          ),
-                                        ),
-                                        DragTargetWidget(
-                                          targetValue: '2',
-                                          widgetType: WidgetType.rectangle,
-                                          resetNotifier: resetNotifier,
-                                          onAcceptItem: (value) =>
-                                              onTargetAccept(
-                                            target: '2',
-                                            details: value,
-                                          ),
-                                        ),
-                                        DragTargetWidget(
-                                          targetValue: '3',
-                                          widgetType: WidgetType.rectangle,
-                                          resetNotifier: resetNotifier,
-                                          onAcceptItem: (value) =>
-                                              onTargetAccept(
-                                            target: '3',
-                                            details: value,
-                                          ),
-                                        ),
-                                      ],
+                                    DragTargetWidget(
+                                      targetValue: '1',
+                                      widgetType: WidgetType.rectangle,
+                                      resetNotifier: resetNotifier,
+                                      onAcceptItem: (value) => onTargetAccept(
+                                        target: '1',
+                                        details: value,
+                                      ),
                                     ),
-                                    const SizedBox(height: 16),
-                                    NextButton(onTap: onSubmit),
+                                    DragTargetWidget(
+                                      targetValue: '2',
+                                      widgetType: WidgetType.rectangle,
+                                      resetNotifier: resetNotifier,
+                                      onAcceptItem: (value) => onTargetAccept(
+                                        target: '2',
+                                        details: value,
+                                      ),
+                                    ),
+                                    DragTargetWidget(
+                                      targetValue: '3',
+                                      widgetType: WidgetType.rectangle,
+                                      resetNotifier: resetNotifier,
+                                      onAcceptItem: (value) => onTargetAccept(
+                                        target: '3',
+                                        details: value,
+                                      ),
+                                    ),
                                   ],
                                 ),
-                              ),
-                              Flexible(
-                                flex: 1,
-                                child: LettersWidget(
-                                  letters: magicWordTest1.sublist(4),
-                                  targets: targets,
-                                ),
-                              ),
-                            ],
+                                const SizedBox(height: 16),
+                                NextButton(onTap: onSubmit),
+                              ],
+                            ),
+                          ),
+                          Flexible(
+                            flex: 1,
+                            child: LettersWidget(
+                              letters: magicWordTest1.sublist(4),
+                              targets: targets,
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                  );
-                }),
-              ),
-              //Appbar
-              Align(
-                alignment: Alignment.topLeft,
-                child: SafeArea(
-                  child: CustomAppbar(refreh: resetGame),
+                    ],
+                  ),
                 ),
-              ),
-              //Sound button
-              const Align(
-                alignment: Alignment.bottomLeft,
-                child: SafeArea(
-                  child: AudioButton(),
+                //Appbar
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: SafeArea(
+                    child: CustomAppbar(refreh: resetGame),
+                  ),
                 ),
-              ),
-            ],
+                //Sound button
+                const Align(
+                  alignment: Alignment.bottomLeft,
+                  child: SafeArea(
+                    child: AudioButton(),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

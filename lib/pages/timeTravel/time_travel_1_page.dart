@@ -64,99 +64,93 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(AppImages.timeTravel1Background),
-            fit: BoxFit.cover,
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(AppImages.timeTravel1Background),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: SafeArea(
-          child: Stack(
-            children: [
-              Container(
-                width: size.width,
-                height: size.height,
-                padding: const EdgeInsets.all(22),
-                child: LayoutBuilder(
-                  builder: (context, constraints) {
-                    return SingleChildScrollView(
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          minHeight: constraints.maxHeight,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                TimeTravelTargetWidget(
-                                  resetNotifier: resetNotifier,
-                                  onTargetAccept: (target, detail) {
-                                    onTargetAccept(
-                                      target: target,
-                                      details: detail,
-                                    );
-                                  },
-                                  images: const [
-                                    AppImages.retanguloAzul,
-                                    AppImages.retanguloRoxo,
-                                    AppImages.retanguloVerde,
-                                    AppImages.retanguloLaranja,
-                                  ],
-                                ),
-                                Flexible(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      //Draggable
-                                      Wrap(
-                                        spacing: 8,
-                                        runSpacing: 8,
-                                        runAlignment: WrapAlignment.center,
-                                        alignment: WrapAlignment.center,
-                                        children: widget.model.assets!
-                                            .map((e) => DraggableWidget(
-                                                  targets: targets,
-                                                  item: e,
-                                                  widgetType: WidgetType.circle,
-                                                  // color: Colors.red,
-                                                ))
-                                            .toList(),
-                                      ),
-                                      ResponsiveWidget.isMobile(context)
-                                          ? const SizedBox(height: 22)
-                                          : const SizedBox(height: 100),
-                                      //Button
-                                      NextButton(onTap: onSubmit),
-                                    ],
-                                  ),
-                                ),
+          child: SafeArea(
+            child: Stack(
+              children: [
+                Container(
+                  width: size.width,
+                  height: size.height,
+                  padding: const EdgeInsets.all(22),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Flexible(
+                            child: TimeTravelTargetWidget(
+                              resetNotifier: resetNotifier,
+                              onTargetAccept: (target, detail) {
+                                onTargetAccept(
+                                  target: target,
+                                  details: detail,
+                                );
+                              },
+                              images: const [
+                                AppImages.retanguloAzul,
+                                AppImages.retanguloRoxo,
+                                AppImages.retanguloVerde,
+                                AppImages.retanguloLaranja,
                               ],
                             ),
-                          ],
-                        ),
+                          ),
+                          Flexible(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                //Draggable
+                                Wrap(
+                                  spacing: 8,
+                                  runSpacing: 8,
+                                  runAlignment: WrapAlignment.center,
+                                  alignment: WrapAlignment.center,
+                                  children: widget.model.assets!
+                                      .map((e) => DraggableWidget(
+                                            targets: targets,
+                                            item: e,
+                                            widgetType: WidgetType.circle,
+                                            // color: Colors.red,
+                                          ))
+                                      .toList(),
+                                ),
+                                ResponsiveWidget.isMobile(context)
+                                    ? const SizedBox(height: 22)
+                                    : const SizedBox(height: 100),
+                                //Button
+                                NextButton(onTap: onSubmit),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    );
-                  },
+                    ],
+                  ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: SafeArea(
-                  child: CustomAppbar(refreh: resetGame),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: SafeArea(
+                    child: CustomAppbar(refreh: resetGame),
+                  ),
                 ),
-              ),
-              const Align(
-                alignment: Alignment.bottomLeft,
-                child: SafeArea(
-                  child: AudioButton(),
+                const Align(
+                  alignment: Alignment.bottomLeft,
+                  child: SafeArea(
+                    child: AudioButton(),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

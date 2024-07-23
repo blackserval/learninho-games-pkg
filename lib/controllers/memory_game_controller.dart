@@ -9,6 +9,8 @@ import '../model/card_model.dart';
 enum CardState { hidden, visible, guessed }
 
 class MemoryGameController {
+  //Flipou 2 trava
+  var canFlip = ValueNotifier<bool>(true);
   var cards = ValueNotifier<List<CardModel>?>([]);
   bool isGameOver = false;
   final random = Random();
@@ -80,11 +82,12 @@ class MemoryGameController {
     debugPrint("Card tapped $index");
     cards.value![index].state = CardState.visible;
 
-    final List<int> visibleCardIndexes = _getVisibleCardIndexes();
-    debugPrint("Visible cards $visibleCardIndexes");
-    if (visibleCardIndexes.length == 2) {
-      final CardModel card1 = cards.value![visibleCardIndexes[0]];
-      final CardModel card2 = cards.value![visibleCardIndexes[1]];
+    final List<CardModel> visibleCard = _getVisibleCardIndexes();
+    debugPrint("Visible cards $visibleCard");
+    if (visibleCard.length == 2) {
+      canFlip.value = false;
+      final CardModel card1 = visibleCard[0];
+      final CardModel card2 = visibleCard[1];
 
       if (card1.value == card2.value) {
         card1.state = CardState.guessed;
@@ -97,12 +100,9 @@ class MemoryGameController {
     }
   }
 
-  List<int> _getVisibleCardIndexes() {
+  List<CardModel> _getVisibleCardIndexes() {
     return cards.value!
-        .asMap()
-        .entries
-        .where((entry) => entry.value.state == CardState.visible)
-        .map((entry) => entry.key)
+        .where((entry) => entry.state == CardState.visible)
         .toList();
   }
 

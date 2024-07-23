@@ -57,125 +57,113 @@ class _MagicWordPage2State extends State<MagicWordPage2> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(AppImages.timeTravel1Background),
-            fit: BoxFit.cover,
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(AppImages.timeTravel1Background),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: SafeArea(
-          child: Stack(
-            children: [
-              //Body
-              Container(
-                width: size.width,
-                height: size.height,
-                padding: const EdgeInsets.all(22),
-                child: LayoutBuilder(
-                  builder: (context, constrains) {
-                    return SingleChildScrollView(
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          minHeight: constrains.maxHeight,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Row(
+          child: SafeArea(
+            child: Stack(
+              children: [
+                //Body
+                Container(
+                  width: size.width,
+                  height: size.height,
+                  padding: const EdgeInsets.all(22),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Flexible(
+                            flex: 1,
+                            child: ImageWidget(
+                              size: 120,
+                              image:
+                                  "https://www.creativefabrica.com/wp-content/uploads/2023/09/05/Nature-wallpaper-Graphics-78543985-1.jpg",
+                            ),
+                          ),
+                          Flexible(
+                            flex: 1,
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const Flexible(
-                                  flex: 1,
-                                  child: ImageWidget(
-                                    size: 120,
-                                    image:
-                                        "https://www.creativefabrica.com/wp-content/uploads/2023/09/05/Nature-wallpaper-Graphics-78543985-1.jpg",
-                                  ),
+                                LettersWidget(
+                                  letters: magicWordTest2,
+                                  targets: targets,
                                 ),
-                                Flexible(
-                                  flex: 1,
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      LettersWidget(
-                                        letters: magicWordTest2,
-                                        targets: targets,
+                                //Targets
+                                Wrap(
+                                  spacing: 8,
+                                  runSpacing: 8,
+                                  runAlignment: WrapAlignment.center,
+                                  alignment: WrapAlignment.center,
+                                  children: [
+                                    DragTargetWidget(
+                                      widgetType: WidgetType.rectangle,
+                                      targetValue: '0',
+                                      onAcceptItem: (value) => onTargetAccept(
+                                        target: '0',
+                                        details: value,
                                       ),
-                                      //Targets
-                                      Wrap(
-                                        spacing: 8,
-                                        runSpacing: 8,
-                                        runAlignment: WrapAlignment.center,
-                                        alignment: WrapAlignment.center,
-                                        children: [
-                                          DragTargetWidget(
-                                            widgetType: WidgetType.rectangle,
-                                            targetValue: '0',
-                                            onAcceptItem: (value) =>
-                                                onTargetAccept(
-                                              target: '0',
-                                              details: value,
-                                            ),
-                                            backgroundColor: Colors.transparent,
-                                            resetNotifier: resetNotifier,
-                                          ),
-                                          DragTargetWidget(
-                                            widgetType: WidgetType.rectangle,
-                                            targetValue: '1',
-                                            onAcceptItem: (value) =>
-                                                onTargetAccept(
-                                              target: '1',
-                                              details: value,
-                                            ),
-                                            backgroundColor: Colors.transparent,
-                                            resetNotifier: resetNotifier,
-                                          ),
-                                          DragTargetWidget(
-                                            widgetType: WidgetType.rectangle,
-                                            targetValue: '2',
-                                            onAcceptItem: (value) =>
-                                                onTargetAccept(
-                                              target: '2',
-                                              details: value,
-                                            ),
-                                            backgroundColor: Colors.transparent,
-                                            resetNotifier: resetNotifier,
-                                          ),
-                                        ],
+                                      backgroundColor: Colors.transparent,
+                                      resetNotifier: resetNotifier,
+                                    ),
+                                    DragTargetWidget(
+                                      widgetType: WidgetType.rectangle,
+                                      targetValue: '1',
+                                      onAcceptItem: (value) => onTargetAccept(
+                                        target: '1',
+                                        details: value,
                                       ),
-                                      const SizedBox(height: 30),
-                                      NextButton(onTap: onSubmit),
-                                    ],
-                                  ),
+                                      backgroundColor: Colors.transparent,
+                                      resetNotifier: resetNotifier,
+                                    ),
+                                    DragTargetWidget(
+                                      widgetType: WidgetType.rectangle,
+                                      targetValue: '2',
+                                      onAcceptItem: (value) => onTargetAccept(
+                                        target: '2',
+                                        details: value,
+                                      ),
+                                      backgroundColor: Colors.transparent,
+                                      resetNotifier: resetNotifier,
+                                    ),
+                                  ],
                                 ),
+                                const SizedBox(height: 30),
+                                NextButton(onTap: onSubmit),
                               ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    );
-                  },
+                    ],
+                  ),
                 ),
-              ),
-              //Appbar
-              Align(
-                alignment: Alignment.topLeft,
-                child: SafeArea(
-                  child: CustomAppbar(refreh: resetGame),
+                //Appbar
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: SafeArea(
+                    child: CustomAppbar(refreh: resetGame),
+                  ),
                 ),
-              ),
-              //Sound button
-              const Align(
-                alignment: Alignment.bottomLeft,
-                child: SafeArea(
-                  child: AudioButton(),
+                //Sound button
+                const Align(
+                  alignment: Alignment.bottomLeft,
+                  child: SafeArea(
+                    child: AudioButton(),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
