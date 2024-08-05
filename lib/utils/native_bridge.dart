@@ -48,15 +48,7 @@ class NativeBridge {
     String data = call.arguments.toString().replaceAll("\\", "");
     Map<String, dynamic> jsonMap = json.decode(data);
 
-    final model = GameModel(
-      page: jsonMap['page'],
-      assets: (jsonMap['assets'] as List<dynamic>?)
-          ?.map((e) => AssetsModel(
-                url: e['url'] as String?,
-                value: e['value'] as String?,
-              ))
-          .toList(),
-    );
+    final model = convertJsonToModule(jsonMap);
 
     route.push(name: model.page!, args: model);
   }
@@ -79,5 +71,14 @@ class NativeBridge {
 
     AudioPreferences.setAudio(value: jsonMap['audio_enabled']);
     AudioPreferences.setMusic(value: jsonMap['music_enabled']);
+  }
+
+  GameModel convertJsonToModule(Map<String, dynamic> json) {
+    return GameModel(
+      page: json['page'],
+      assets: (json['assets'] as List<dynamic>)
+          .map((e) => AssetsModel(url: e['url'], value: e['value']))
+          .toList(),
+    );
   }
 }
