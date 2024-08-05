@@ -32,19 +32,5 @@ class CircleWidget extends StatelessWidget {
               ),
             ),
     );
-    // return Container(
-    //   width: ResponsiveWidget.isMobile(context) ? 80 : 100,
-    //   height: ResponsiveWidget.isMobile(context) ? 80 : 100,
-    //   decoration: BoxDecoration(
-    //     color: color,
-    //     shape: BoxShape.circle,
-    //     image: image == null
-    //         ? null
-    //         : DecorationImage(
-    //             image: NetworkImage(image!),
-    //             fit: BoxFit.cover,
-    //           ),
-    //   ),
-    // );
   }
 }
