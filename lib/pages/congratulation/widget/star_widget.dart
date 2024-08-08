@@ -100,7 +100,7 @@ class StarWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          _button(),
+          // _button(),
         ],
       ),
     );
