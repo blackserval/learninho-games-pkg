@@ -19,7 +19,7 @@ class RectangleWidget extends StatelessWidget {
       height: ResponsiveWidget.isMobile(context) ? 40 : 80,
       decoration: BoxDecoration(
         color: color,
-        border: Border.all(),
+        border: Border.all(width: 1),
         borderRadius: BorderRadius.circular(5),
       ),
       child: image == null

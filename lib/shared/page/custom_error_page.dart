@@ -20,11 +20,15 @@ class CustomErrorPage {
                   size: 70,
                 ),
                 Text(
-                  kDebugMode
-                      ? error.exceptionAsString()
-                      : 'Oops... ocorreu um erro inesperado, entre em contato se precisar de ajuda',
+                  error.exceptionAsString(),
                   textAlign: TextAlign.center,
                 ),
+                // Text(
+                //   kDebugMode
+                //       ? error.exceptionAsString()
+                //       : 'Oops... ocorreu um erro inesperado, entre em contato se precisar de ajuda',
+                //   textAlign: TextAlign.center,
+                // ),
               ],
             ),
           ),

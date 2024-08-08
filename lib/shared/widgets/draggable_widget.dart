@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_game_module/model/assets_model.dart';
-import 'package:flutter_game_module/shared/shape/circle_widget.dart';
+import 'package:flutter_game_module/shared/shape/circle_border_widget.dart';
 import 'package:flutter_game_module/shared/shape/rectangle_widget.dart';
 
 import '../../config/constants.dart';
@@ -29,19 +29,20 @@ class DraggableWidget extends StatelessWidget {
     return Draggable<AssetsModel>(
       data: item,
       feedback: switch (widgetType) {
-        WidgetType.circle => CircleWidget(image: item.url, color: color),
+        WidgetType.circle => CircleBorderWidget(image: item.url, color: color),
         WidgetType.rectangle => RectangleWidget(image: item.url, color: color),
         WidgetType.square => SquareWidget(image: item.url, color: color),
       },
       childWhenDragging: switch (widgetType) {
-        WidgetType.circle => const CircleWidget(color: Colors.grey),
+        WidgetType.circle => const CircleBorderWidget(color: Colors.grey),
         WidgetType.rectangle => const RectangleWidget(color: Colors.grey),
         WidgetType.square => const SquareWidget(color: Colors.grey),
       },
       child: contain
           ? const SizedBox.shrink()
           : switch (widgetType) {
-              WidgetType.circle => CircleWidget(image: item.url, color: color),
+              WidgetType.circle =>
+                CircleBorderWidget(image: item.url, color: color),
               WidgetType.rectangle =>
                 RectangleWidget(image: item.url, color: color),
               WidgetType.square => SquareWidget(image: item.url, color: color),

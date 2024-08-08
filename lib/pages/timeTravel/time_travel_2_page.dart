@@ -15,7 +15,7 @@ import '../../shared/custom_snack.dart';
 import '../../shared/widgets/custom_appbar.dart';
 import '../../shared/widgets/draggable_widget.dart';
 import '../../utils/responsive_widget.dart';
-import 'widget/time_travel_target_widget.dart';
+import 'widget/time_travel_target_row.dart';
 
 class TimeTravel2Page extends StatefulWidget {
   final GameModel model;
@@ -29,7 +29,7 @@ class TimeTravel2Page extends StatefulWidget {
 class _TimeTravel2PageState extends State<TimeTravel2Page> {
   final controller = GetIt.I.get<GameController>();
   final snack = GetIt.I.get<CustomSnack>();
-  final audio = GetIt.I.get<AudioController>();
+  final audioController = GetIt.I.get<AudioController>();
   final ValueNotifier resetNotifier = ValueNotifier(0);
   Map<String, String?> targets = {
     "0": null,
@@ -41,7 +41,7 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
 
   @override
   void initState() {
-    audio.playSound(song: AppSounds.timeTravel);
+    audioController.playSound(song: AppSounds.timeTravel);
     super.initState();
   }
 
@@ -76,6 +76,7 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    bool isMobile = ResponsiveWidget.isMobile(context);
 
     return PopScope(
       canPop: false,
@@ -87,10 +88,10 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
               fit: BoxFit.cover,
             ),
           ),
-          child: SafeArea(
-            child: Stack(
-              children: [
-                Container(
+          child: Stack(
+            children: [
+              SafeArea(
+                child: Container(
                   width: size.width,
                   height: size.height,
                   padding: const EdgeInsets.all(22),
@@ -98,7 +99,8 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      TimeTravelTargetWidget(
+                      //Target
+                      TimeTravelTargetRow(
                         resetNotifier: resetNotifier,
                         onTargetAccept: (target, detail) {
                           onTargetAccept(target: target, details: detail);
@@ -112,51 +114,42 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
                         ],
                       ),
                       const SizedBox(height: 30),
-                      // Widgets Draggable
-                      SafeArea(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const SizedBox.shrink(),
-                            Flexible(
-                              child: Wrap(
-                                spacing: 8,
-                                runSpacing: 8,
-                                runAlignment: WrapAlignment.center,
-                                alignment: WrapAlignment.center,
-                                children: widget.model.assets!
-                                    .map((e) => DraggableWidget(
-                                          targets: targets,
-                                          item: e,
-                                          widgetType: WidgetType.circle,
-                                        ))
-                                    .toList(),
-                              ),
-                            ),
-                            ResponsiveWidget.isMobile(context)
-                                ? const SizedBox(height: 22)
-                                : const SizedBox(height: 100),
-                            NextButton(onTap: onSubmit),
-                          ],
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          //Draggable
+                          ...widget.model.assets!
+                              .map(
+                                (e) => Padding(
+                                  padding: const EdgeInsets.only(right: 8),
+                                  child: DraggableWidget(
+                                    targets: targets,
+                                    item: e,
+                                    widgetType: WidgetType.circle,
+                                  ),
+                                ),
+                              )
+                              .toList()
+                            ..shuffle(),
+                          SizedBox(width: isMobile ? 35 : 50),
+                          Flexible(
+                            child: NextButton(onTap: onSubmit),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: SafeArea(
-                    child: CustomAppbar(refreh: resetGame),
-                  ),
-                ),
-                const Align(
-                  alignment: Alignment.bottomLeft,
-                  child: SafeArea(
-                    child: AudioButton(),
-                  ),
-                ),
-              ],
-            ),
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: CustomAppbar(refreh: resetGame),
+              ),
+              const Align(
+                alignment: Alignment.bottomLeft,
+                child: AudioButton(),
+              ),
+            ],
           ),
         ),
       ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_game_module/config/constants.dart';
 import 'package:flutter_game_module/model/assets_model.dart';
 import 'package:flutter_game_module/model/game_model.dart';
-import 'package:flutter_game_module/pages/timeTravel/widget/time_travel_target_widget.dart';
+import 'package:flutter_game_module/pages/timeTravel/widget/time_travel_target_grid.dart';
 import 'package:flutter_game_module/routes/app_pages.dart';
 import 'package:flutter_game_module/shared/app_images.dart';
 import 'package:flutter_game_module/shared/app_sounds.dart';
@@ -72,6 +72,7 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    bool isMobile = ResponsiveWidget.isMobile(context);
     return PopScope(
       canPop: false,
       child: Scaffold(
@@ -82,10 +83,10 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
               fit: BoxFit.cover,
             ),
           ),
-          child: SafeArea(
-            child: Stack(
-              children: [
-                Container(
+          child: Stack(
+            children: [
+              SafeArea(
+                child: Container(
                   width: size.width,
                   height: size.height,
                   padding: const EdgeInsets.all(22),
@@ -97,7 +98,7 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Flexible(
-                            child: TimeTravelTargetWidget(
+                            child: TimeTravelTargetGrid(
                               resetNotifier: resetNotifier,
                               onTargetAccept: (target, detail) {
                                 onTargetAccept(
@@ -118,23 +119,29 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 //Draggable
-                                Wrap(
-                                  spacing: 8,
-                                  runSpacing: 8,
-                                  runAlignment: WrapAlignment.center,
-                                  alignment: WrapAlignment.center,
-                                  children: widget.model.assets!
-                                      .map((e) => DraggableWidget(
-                                            targets: targets,
-                                            item: e,
-                                            widgetType: WidgetType.circle,
-                                            // color: Colors.red,
-                                          ))
-                                      .toList(),
+                                SizedBox(
+                                  width: size.width * 0.27,
+                                  height: size.height * 0.57,
+                                  child: GridView.count(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    crossAxisCount: 2,
+                                    mainAxisSpacing: 8,
+                                    crossAxisSpacing: 8,
+                                    clipBehavior: Clip.none,
+                                    children: widget.model.assets!
+                                        .map((e) => DraggableWidget(
+                                              targets: targets,
+                                              item: e,
+                                              widgetType: WidgetType.circle,
+                                              // color: Colors.red,
+                                            ))
+                                        .toList()
+                                      ..shuffle(),
+                                  ),
                                 ),
-                                ResponsiveWidget.isMobile(context)
-                                    ? const SizedBox(height: 22)
-                                    : const SizedBox(height: 100),
+                                SizedBox(height: isMobile ? 30 : 100),
                                 //Button
                                 NextButton(onTap: onSubmit),
                               ],
@@ -145,20 +152,16 @@ class _TimeTravel1PageState extends State<TimeTravel1Page> {
                     ],
                   ),
                 ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: SafeArea(
-                    child: CustomAppbar(refreh: resetGame),
-                  ),
-                ),
-                const Align(
-                  alignment: Alignment.bottomLeft,
-                  child: SafeArea(
-                    child: AudioButton(),
-                  ),
-                ),
-              ],
-            ),
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: CustomAppbar(refreh: resetGame),
+              ),
+              const Align(
+                alignment: Alignment.bottomLeft,
+                child: AudioButton(),
+              ),
+            ],
           ),
         ),
       ),

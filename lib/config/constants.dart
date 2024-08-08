@@ -124,63 +124,10 @@ final List<AssetsModel> numbersLeft = [
   ),
 ];
 
-final List<AssetsModel> magicWordTest2 = [
-  AssetsModel(
-    url:
-        "https://www.creativefabrica.com/wp-content/uploads/2023/09/05/Nature-wallpaper-Graphics-78543985-1.jpg",
-    value: 0,
-  ),
+final List<AssetsModel> magicWordTest = [
   AssetsModel(
     url:
         "https://www.creativefabrica.com/wp-content/uploads/2023/09/05/Nature-wallpaper-Graphics-78543985-1.jpg",
     value: 1,
-  ),
-  AssetsModel(
-    url:
-        "https://www.creativefabrica.com/wp-content/uploads/2023/09/05/Nature-wallpaper-Graphics-78543985-1.jpg",
-    value: 2,
-  ),
-];
-
-final List<AssetsModel> magicWordTest1 = [
-  AssetsModel(
-    url:
-        "https://www.creativefabrica.com/wp-content/uploads/2023/09/05/Nature-wallpaper-Graphics-78543985-1.jpg",
-    value: 0,
-  ),
-  AssetsModel(
-    url:
-        "https://www.creativefabrica.com/wp-content/uploads/2023/09/05/Nature-wallpaper-Graphics-78543985-1.jpg",
-    value: 1,
-  ),
-  AssetsModel(
-    url:
-        "https://www.creativefabrica.com/wp-content/uploads/2023/09/05/Nature-wallpaper-Graphics-78543985-1.jpg",
-    value: 2,
-  ),
-  AssetsModel(
-    url:
-        "https://www.creativefabrica.com/wp-content/uploads/2023/09/05/Nature-wallpaper-Graphics-78543985-1.jpg",
-    value: 3,
-  ),
-  AssetsModel(
-    url:
-        "https://www.creativefabrica.com/wp-content/uploads/2023/09/05/Nature-wallpaper-Graphics-78543985-1.jpg",
-    value: 4,
-  ),
-  AssetsModel(
-    url:
-        "https://www.creativefabrica.com/wp-content/uploads/2023/09/05/Nature-wallpaper-Graphics-78543985-1.jpg",
-    value: 5,
-  ),
-  AssetsModel(
-    url:
-        "https://www.creativefabrica.com/wp-content/uploads/2023/09/05/Nature-wallpaper-Graphics-78543985-1.jpg",
-    value: 6,
-  ),
-  AssetsModel(
-    url:
-        "https://www.creativefabrica.com/wp-content/uploads/2023/09/05/Nature-wallpaper-Graphics-78543985-1.jpg",
-    value: 7,
   ),
 ];

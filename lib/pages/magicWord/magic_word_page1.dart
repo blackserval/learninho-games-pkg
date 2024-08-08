@@ -89,7 +89,7 @@ class _MagicWordPage1State extends State<MagicWordPage1> {
                           Flexible(
                             flex: 1,
                             child: LettersWidget(
-                              letters: magicWordTest1.sublist(0, 4),
+                              letters: magicWordTest.sublist(0, 4),
                               targets: targets,
                             ),
                           ),
@@ -166,7 +166,7 @@ class _MagicWordPage1State extends State<MagicWordPage1> {
                           Flexible(
                             flex: 1,
                             child: LettersWidget(
-                              letters: magicWordTest1.sublist(4),
+                              letters: magicWordTest.sublist(4),
                               targets: targets,
                             ),
                           ),

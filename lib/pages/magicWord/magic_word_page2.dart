@@ -96,7 +96,7 @@ class _MagicWordPage2State extends State<MagicWordPage2> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 LettersWidget(
-                                  letters: magicWordTest2,
+                                  letters: magicWordTest,
                                   targets: targets,
                                 ),
                                 //Targets

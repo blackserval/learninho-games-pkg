@@ -4,3 +4,10 @@ class AssetsModel {
 
   AssetsModel({this.url, this.value});
 }
+
+class AssetsStringModel {
+  String? url;
+  String? value;
+
+  AssetsStringModel({this.url, this.value});
+}

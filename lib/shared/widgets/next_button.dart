@@ -10,8 +10,10 @@ class NextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    
     return SizedBox(
-      width: ResponsiveWidget.isMobile(context) ? 200 : 250,
+      width: size.width * 0.27,
       height: ResponsiveWidget.isMobile(context) ? 50 : 80,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(

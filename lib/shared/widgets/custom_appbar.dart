@@ -14,32 +14,37 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final audioController = GetIt.I.get<AudioController>();
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          CircleAvatar(
-            backgroundColor: Colors.grey[300],
-            radius: 20,
-            child: IconButton(
-              icon: const Icon(Icons.close),
-              color: Colors.grey[800],
-              onPressed: () {
-                audioController.stopSound();
-                SystemNavigator.pop(animated: true);
-              },
+    return Container(
+      width: double.maxFinite,
+      padding: const EdgeInsets.only(top: 8),
+      child: SafeArea(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CircleAvatar(
+              backgroundColor: Colors.grey[300],
+              radius: 25,
+              child: IconButton(
+                icon: const Icon(Icons.close),
+                color: Colors.grey[800],
+                iconSize: 28,
+                onPressed: () {
+                  audioController.stopSound();
+                  SystemNavigator.pop(animated: true);
+                },
+              ),
             ),
-          ),
-          CircleAvatar(
-            backgroundColor: Colors.grey[300],
-            radius: 20,
-            child: IconButton(
-              onPressed: refreh,
-              icon: const Icon(Icons.refresh),
+            CircleAvatar(
+              backgroundColor: Colors.grey[300],
+              radius: 25,
+              child: IconButton(
+                onPressed: refreh,
+                iconSize: 28,
+                icon: const Icon(Icons.refresh),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
