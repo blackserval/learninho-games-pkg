@@ -2,8 +2,9 @@
     "game": "magic-word-b",
     "assets": [
         {
-            "url": "xyz",
+            "url": "https://images.placeholders.dev/?width=100&height=100&text=elephant&bgColor=%23f7f6f6&textColor=%236d6e71",
             "value": "elephant"
         }
-    ]
+    ],
+    "words": ["e", "el", "phant"]
 }

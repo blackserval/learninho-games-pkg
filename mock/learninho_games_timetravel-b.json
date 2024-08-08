@@ -2,23 +2,23 @@
     "game": "timetravel-b",
     "assets": [
         {
-            "url": "xyz",
+            "url": "https://images.placeholders.dev/?width=100&height=100&text=0&bgColor=%23f7f6f6&textColor=%236d6e71",
             "value": "0"
         },
         {
-            "url": "xyz",
+            "url": "https://images.placeholders.dev/?width=100&height=100&text=1&bgColor=%23f7f6f6&textColor=%236d6e71",
             "value": "1"
         },
         {
-            "url": "xyz",
+            "url": "https://images.placeholders.dev/?width=100&height=100&text=2&bgColor=%23f7f6f6&textColor=%236d6e71",
             "value": "2"
         },
         {
-            "url": "xyz",
+            "url": "https://images.placeholders.dev/?width=100&height=100&text=3&bgColor=%23f7f6f6&textColor=%236d6e71",
             "value": "3"
         },
         {
-            "url": "xyz",
+            "url": "https://images.placeholders.dev/?width=100&height=100&text=4&bgColor=%23f7f6f6&textColor=%236d6e71",
             "value": "4"
         }
     ]

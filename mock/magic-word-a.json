@@ -2,9 +2,8 @@
     "game": "magic-word-a",
     "assets": [
         {
-            "url": "xyz",
-            "value": "elephant"
+            "url": "https://images.placeholders.dev/?width=100&height=100&text=duck&bgColor=%23f7f6f6&textColor=%236d6e71",
+            "value": "duck"
         }
-    ],
-    "words": ["racoon", "cat", "snake", "puppy", "parrot"]
+    ]
 }
