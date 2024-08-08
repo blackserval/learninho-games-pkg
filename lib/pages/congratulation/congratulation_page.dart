@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_game_module/model/arguments/congratulation_page_args.dart';
+import 'package:flutter_game_module/pages/congratulation/widget/score_widget.dart';
 import 'package:flutter_game_module/pages/congratulation/widget/star_widget.dart';
+import 'package:flutter_game_module/pages/congratulation/widget/title_widget.dart';
 import 'package:flutter_game_module/shared/app_images.dart';
 
 class CongratulationsPage extends StatelessWidget {
@@ -55,7 +57,18 @@ class CongratulationsPage extends StatelessWidget {
                 ),
               ),
             ),
-            StarWidget(model: model),
+            Align(
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  StarWidget(model: model),
+                  TitleWidget(model: model),
+                  const SizedBox(height: 22),
+                  ScoreWidget(model: model),
+                ],
+              ),
+            ),
           ],
         ),
       ),

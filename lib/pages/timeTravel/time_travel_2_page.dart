@@ -70,6 +70,7 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
     controller.checkSocre(
       targets: targets,
       pageFrom: AppPages.timeTravel2,
+      level: widget.model.level,
     );
   }
 

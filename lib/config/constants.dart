@@ -15,6 +15,7 @@ class AppConstants {
 
 GameModel timeTravelModel1 = GameModel(
   page: '/timeTravel1',
+  level: 21,
   assets: [
     AssetsModel(
       url:

@@ -51,6 +51,7 @@ class _MagicWordPage2State extends State<MagicWordPage2> {
     controller.checkSocre(
       targets: targets,
       pageFrom: AppPages.magicWord2,
+      level: 1,
     );
   }
 

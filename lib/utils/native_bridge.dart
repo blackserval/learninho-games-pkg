@@ -76,6 +76,7 @@ class NativeBridge {
   GameModel convertJsonToModule(Map<String, dynamic> json) {
     return GameModel(
       page: json['page'],
+      level: json['level'],
       assets: (json['assets'] as List<dynamic>)
           .map((e) => AssetsModel(url: e['url'], value: e['value']))
           .toList(),

@@ -49,6 +49,7 @@ class _NumbersPageState extends State<NumbersPage> {
     controller.checkSocre(
       targets: targets,
       pageFrom: AppPages.numbers,
+      level: 1,
     );
   }
 

@@ -17,6 +17,7 @@ class GameController {
   void checkSocre({
     required Map<String, String?> targets,
     required String pageFrom,
+    required int level,
   }) {
     int score = 0;
 
@@ -25,6 +26,8 @@ class GameController {
         score++;
       }
     }
+    
+    sendGameResult(value: score);
 
     route.push(
       name: AppPages.congratulations,
@@ -32,6 +35,7 @@ class GameController {
         tryAgain: score < 1,
         pageFrom: pageFrom,
         score: score,
+        level: level,
       ),
     );
   }
