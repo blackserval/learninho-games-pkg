@@ -89,68 +89,76 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
               fit: BoxFit.cover,
             ),
           ),
-          child: Stack(
-            children: [
-              SafeArea(
-                child: Container(
-                  width: size.width,
-                  height: size.height,
-                  padding: const EdgeInsets.all(22),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      //Target
-                      TimeTravelTargetRow(
-                        resetNotifier: resetNotifier,
-                        onTargetAccept: (target, detail) {
-                          onTargetAccept(target: target, details: detail);
-                        },
-                        images: const [
-                          AppImages.retanguloAzul,
-                          AppImages.retanguloRoxo,
-                          AppImages.retanguloVerde,
-                          AppImages.retanguloLaranja,
-                          AppImages.retanguloVermelho,
-                        ],
-                      ),
-                      const SizedBox(height: 30),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [ 
-                          // Draggable
-                          ...widget.model.assets!
-                              .map(
-                                (e) => Padding(
-                                  padding: const EdgeInsets.only(right: 8),
-                                  child: DraggableWidget(
-                                    targets: targets,
-                                    item: e,
-                                    widgetType: WidgetType.circle,
-                                  ),
-                                ),
-                              )
-                              .toList()
-                            ..shuffle(),
-                          SizedBox(width: isMobile ? 35 : 50),
-                          Flexible(
-                            child: NextButton(onTap: onSubmit),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: size.height,
+              maxWidth: size.width,
+            ),
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.all(22),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          //Target
+                          TimeTravelTargetRow(
+                            resetNotifier: resetNotifier,
+                            onTargetAccept: (target, detail) {
+                              onTargetAccept(target: target, details: detail);
+                            },
+                            images: const [
+                              AppImages.retanguloAzul,
+                              AppImages.retanguloRoxo,
+                              AppImages.retanguloVerde,
+                              AppImages.retanguloLaranja,
+                              AppImages.retanguloVermelho,
+                            ],
+                          ),
+                          const SizedBox(height: 30),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              // Draggable
+                              ...widget.model.assets!
+                                  .map(
+                                    (e) => Padding(
+                                      padding: const EdgeInsets.only(right: 8),
+                                      child: DraggableWidget(
+                                        targets: targets,
+                                        item: e,
+                                        widgetType: WidgetType.circle,
+                                      ),
+                                    ),
+                                  )
+                                  .toList()
+                                ..shuffle(),
+                             
+                              SizedBox(width: isMobile ? 35 : 50),
+                              Flexible(
+                                child: NextButton(onTap: onSubmit),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: CustomAppbar(refreh: resetGame),
-              ),
-              const Align(
-                alignment: Alignment.bottomLeft,
-                child: AudioButton(),
-              ),
-            ],
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: CustomAppbar(refreh: resetGame),
+                ),
+                const Align(
+                  alignment: Alignment.bottomLeft,
+                  child: AudioButton(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
