@@ -116,9 +116,9 @@ class _TimeTravel2PageState extends State<TimeTravel2Page> {
                       ),
                       const SizedBox(height: 30),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          //Draggable
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [ 
+                          // Draggable
                           ...widget.model.assets!
                               .map(
                                 (e) => Padding(
