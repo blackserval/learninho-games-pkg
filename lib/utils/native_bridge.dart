@@ -50,7 +50,7 @@ class NativeBridge {
 
     final model = convertJsonToModule(jsonMap);
 
-    route.push(name: model.page!, args: model);
+    route.removeUntil(name: model.page!, args: model);
   }
 
   //Send game Result
